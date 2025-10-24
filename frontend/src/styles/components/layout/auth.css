@@ -1,0 +1,133 @@
+/* src/styles/components/layout/auth.css */
+/* Estilos específicos para la tarjeta de autenticación (signin / signup) */
+
+/* tarjeta principal */
+.auth-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 14px 40px rgba(2,6,23,0.06);
+  border: 1px solid rgba(2,6,23,0.04);
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* títulos y subtítulos */
+.auth-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 1;
+  color: #0f172a;
+  font-weight: 700;
+}
+.auth-subtitle {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* contenedor interior */
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* labels e inputs */
+.label {
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #0f172a;
+}
+
+.input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-300);
+  font-size: 14px;
+  outline: none;
+  background: transparent;
+  transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.input::placeholder {
+  color: rgba(15,23,42,0.35);
+}
+
+/* foco */
+.input:focus {
+  box-shadow: 0 8px 20px rgba(16,24,40,0.06);
+  border-color: var(--accent);
+}
+
+/* boton principal */
+.primary-btn {
+  margin-top: 6px;
+  background: linear-gradient(90deg, var(--green), var(--accent));
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: transform 80ms ease, opacity 120ms ease;
+}
+
+.primary-btn:active {
+  transform: translateY(1px);
+}
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* texto auxiliar con link para navegar entre signin/signup */
+.aux-text {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+.aux-link {
+  color: var(--green);
+  font-weight: 600;
+  margin-left: 6px;
+}
+.aux-link:hover {
+  text-decoration: underline;
+}
+
+/* utilidades de layout para la página */
+.page-wrap {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ajuste responsivo: tarjeta ocupa casi todo en pantallas pequeñas */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+  .page-wrap {
+    padding: 12px;
+  }
+  .auth-title { font-size: 18px; }
+  .primary-btn { padding: 10px; font-size: 14px; }
+}
