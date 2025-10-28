@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AuthCard from "../components/layout/AuthCard";
 import { useToast } from "../components/toast/ToastContext";
-import "../styles/components/pages/signup.css";
+import "../styles/components/pages/login.css";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");

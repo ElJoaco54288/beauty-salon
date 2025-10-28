@@ -24,7 +24,7 @@
   padding: 12px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(2,6,23,0.08);
-  background: var(--surface);
+  background: var(--tarjeta);
   border: 1px solid rgba(2,6,23,0.04);
   font-family: var(--font-family);
   font-size: 14px;
@@ -33,18 +33,18 @@
 /* variantes (puedes agregar más tipos) */
 .toast.error { border-left: 6px solid var(--red); }
 .toast.success { border-left: 6px solid var(--green); }
-.toast.info { border-left: 6px solid var(--accent); }
+.toast.info { border-left: 6px solid var(--btn1); }
 
 /* cuerpo del toast */
 .toast-body { padding-bottom: 8px; }
 .toast-title { display:block; font-weight:700; font-size:14px; margin-bottom:6px; color:#0f172a; }
-.toast-message { font-size:13px; color:var(--muted); line-height:1.2; }
+.toast-message { font-size:13px; color:var(--letras); line-height:1.2; }
 
 /* barra de progreso que disminuye en ancho */
 .toast-progress {
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--green), var(--accent));
+  background: linear-gradient(90deg, var(--btn2), var(--btn1));
   transition: width 0.05s linear;
   margin-top: 8px;
 }
