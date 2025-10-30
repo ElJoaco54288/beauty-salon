@@ -1,0 +1,332 @@
+#catalogo {
+    grid-area: catalogo;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--hl-surface) 90%, transparent), color-mix(in srgb, var(--hl-bg) 95%, transparent));
+    padding: 28px;
+    display: flex;
+    justify-content: center;
+    /* separación para que no pegue al hero/footer */
+    gap: 20px;
+}
+
+/* wrapper grid dentro del catálogo
+   Cambios principales:
+   - columnas con ancho fijo (repeat(auto-fill, 240px)) para que las cards no se estiren
+   - justify-content: center para centrar el conjunto cuando hay espacio sobrante
+   - justify-items: center para centrar las cards dentro de cada celda */
+.catalogo-grid {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px); /* ancho fijo por columna */
+    justify-content: center; /* centra el grid dentro del contenedor */
+    justify-items: center; /* centra el contenido de cada celda */
+    gap: 20px;
+    align-items: start;
+    padding: 6px;
+}
+
+/* cada tarjeta */
+.card {
+    background: linear-gradient(180deg, var(--hl-surface), var(--hl-bg));
+    border-radius: var(--rounded);
+    padding: 18px;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid color-mix(in srgb, var(--hl-border) 80%, transparent);
+    box-shadow: var(--shadow-soft);
+    transition: transform 220ms cubic-bezier(.2, .9, .2, 1), box-shadow 220ms, border-color 200ms;
+
+    width: 100%;
+    max-width: 240px;
+    box-sizing: border-box;
+}
+
+/* crest decorativa arriba (CR-like) */
+.card::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -8px;
+    width: 64%;
+    height: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: linear-gradient(90deg, var(--hl-primary), var(--hl-primary-600));
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--hl-primary) 20%, transparent);
+}
+
+/* hover / foco */
+.card:hover,
+.card:focus-within {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-strong);
+    border-color: color-mix(in srgb, var(--hl-border) 100%, transparent);
+    z-index: 2;
+}
+
+/* brillo sutil al pasar */
+.card:hover::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    left: -40%;
+    width: 160%;
+    height: 60%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.0), color-mix(in srgb, var(--hl-accent) 35%, transparent), rgba(255, 255, 255, 0.0));
+    transform: rotate(20deg);
+    animation: shine 900ms ease;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+@keyframes shine {
+    from {
+        transform: translateX(-100%) rotate(20deg);
+        opacity: 0;
+    }
+    50% { opacity: 0.8; }
+    to {
+        transform: translateX(100%) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+/* imagen del producto */
+.img-card {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--hl-primary) 6%, transparent), color-mix(in srgb, #000 2%, transparent));
+    margin-bottom: 12px;
+}
+
+/* título y precio */
+.titulo-card {
+    font-weight: 800;
+    color: var(--hl-text);
+    text-transform: capitalize;
+    margin: 6px 0;
+    font-size: 1.05rem;
+}
+
+/* precio con estilo "badge" */
+.precio-card {
+    display: inline-block;
+    margin: 6px 0 12px;
+    font-weight: 900;
+    color: var(--hl-bg);
+    background: linear-gradient(180deg, var(--hl-primary), var(--hl-primary-600));
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--hl-primary) 18%, transparent);
+}
+
+/* cuerpo de la card */
+.card .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    padding-bottom: 6px;
+}
+
+/* form dentro de la card (cantidad + botón) */
+.card form {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    width: 100%;
+}
+
+/* input cantidad */
+.card form input[type="number"] {
+    width: 62px;
+    padding: 8px 6px;
+    border-radius: 8px;
+    border: 1px solid var(--hl-border);
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    background: var(--hl-bg);
+    color: var(--hl-text);
+}
+
+/* botón añadir */
+.card form input[type="submit"] {
+    background: linear-gradient(180deg, var(--hl-primary-600), var(--hl-primary));
+    color: var(--hl-bg);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 900;
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--hl-primary) 18%, transparent);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.card form input[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px color-mix(in srgb, var(--hl-primary) 24%, transparent);
+}
+
+/* foco accesible */
+.card form input[type="number"]:focus,
+.card form input[type="submit"]:focus {
+    outline: 3px solid color-mix(in srgb, var(--hl-accent) 50%, transparent);
+    outline-offset: 2px;
+}
+
+/* responsive tweaks */
+@media (max-width: 900px) {
+    .catalogo-grid {
+        grid-template-columns: repeat(auto-fill, 200px); /* ancho menor en tablets */
+        gap: 14px;
+    }
+
+    .card {
+        max-width: 200px;
+        min-height: 300px;
+        padding: 14px;
+    }
+
+    .img-card {
+        height: 130px;
+    }
+}
+
+@media (max-width: 420px) {
+    .catalogo-grid {
+        grid-template-columns: repeat(auto-fill, 150px); /* ancho menor en móviles */
+        gap: 10px;
+        padding: 6px;
+    }
+
+    .card {
+        max-width: 150px;
+        min-height: 280px;
+        padding: 12px;
+    }
+
+    .img-card {
+        height: 110px;
+        border-radius: 8px;
+    }
+
+    .titulo-card {
+        font-size: 0.95rem;
+    }
+
+    .precio-card {
+        font-size: 0.9rem;
+        padding: 5px 8px;
+    }
+}
+
+/* variable para controlar ancho de las cards */
+:root {
+  --card-width: 240px; /* cámbiala si querés otro ancho por defecto */
+}
+
+/* --- FLEX LAYOUT: .catalogo-grid como flex container que envuelve --- */
+.catalogo-grid {
+  display: flex;               /* cambiar a flex para usar flex-wrap */
+  flex-wrap: wrap;            /* permite que las cards bajen a la siguiente fila */
+  gap: 20px;                  /* separación entre items */
+  justify-content: center;    /* centra las filas cuando hay espacio sobrante */
+  align-items: start;         /* alinea el contenido superior de las tarjetas */
+  width: 100%;
+  max-width: 1200px;
+  padding: 6px;
+  margin: 0 auto;
+}
+
+/* cada tarjeta: tamaño fijo dentro del flex container */
+.catalogo-grid > .card,
+.catalogo-grid .card {        /* cobertura por si hay wrappers internos */
+  flex: 0 0 var(--card-width); /* no crecer, no reducir, ancho fijo */
+  width: var(--card-width);    /* garantiza tamaño consistente */
+  max-width: var(--card-width);
+  box-sizing: border-box;
+}
+
+
+.card {
+    background: linear-gradient(180deg, var(--hl-surface), var(--hl-bg));
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--hl-border);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px color-mix(in srgb, var(--hl-primary) 20%, transparent);
+}
+
+/* imagen */
+.img-card {
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--hl-primary) 10%, transparent), color-mix(in srgb, var(--hl-surface) 90%, transparent));
+}
+
+/* título */
+.titulo-card {
+    color: var(--hl-text);
+    font-weight: 800;
+}
+
+/* precio */
+.precio-card {
+    color: var(--hl-accent);
+    font-weight: 800;
+}
+
+/* botón */
+.card form input[type="submit"] {
+    background: linear-gradient(180deg, var(--hl-primary), var(--hl-primary-600));
+    color: var(--hl-bg);
+    border: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 12px color-mix(in srgb, var(--hl-primary) 20%, transparent);
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card form input[type="submit"]:hover {
+    background: linear-gradient(180deg, var(--hl-primary-600), var(--hl-accent));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 18px color-mix(in srgb, var(--hl-primary) 25%, transparent);
+}
+
+
+
+/* si necesitas que la card pueda reducirse un poco en pantallas pequeñas, usar min-width */
+@media (max-width: 900px) {
+  :root { --card-width: 200px; }
+}
+
+@media (max-width: 420px) {
+  :root { --card-width: 150px; }
+}
+
+
+
+

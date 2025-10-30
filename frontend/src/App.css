@@ -2,7 +2,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 /* Global styles (to be able to change colors easily) */
@@ -31,14 +30,14 @@
 
 :root {
   /* Light mode */
-  --white: #f2d4dc;
-  --bg: #f5e1e0;  
+  --white: #D9FFF8;
+  --bg: #d7e7e5;  
   --letras: #000000;            
-  --tarjeta: #eec3ec; 
-  --btn1: #94588a;       
-  --btn2: #7d508f; 
-  --header: #e5b7cf ;
-  --border:#ad7bb0;
+  --tarjeta: #C7FFDA; 
+  --btn1: #9ad1c7;       
+  --btn2: #83d288; 
+  --header: #C4F4C7;
+  --border:#3fa29d;
   --red: #f96262;
   --green:  #83ef7f;
  
@@ -46,14 +45,14 @@
 
 /* Dark Mode */
 body.dark-mode {
-  --white: #bd9496;
-  --bg: #a78fa5;  
-  --letras: #000000;            
-  --tarjeta: #d0a5d1; 
-  --btn1: #ba8dae;       
-  --btn2: #765f7f; 
-  --header: #92697e ;
-  --border:#513852;
+  --white: #71a59c;       /* Fondo base oscuro en lugar de blanco */
+  --bg: #a4b1b0;          /* Fondo general oscuro con tono verdoso */
+  --letras: #000000;      /* Letras claras sobre fondo oscuro */
+  --tarjeta: #72a483;     /* Tarjeta con tono verde oscuro */
+  --btn1: #628e86;        /* Botón 1, tono verde-azulado oscuro */
+  --btn2: #427747;        /* Botón 2, verde más profundo */
+  --header: #59885c;      /* Header, verde apagado pero legible */
+  --border: #1d4846;  
   --red: #c24c4c;
   --green:  #62b75f;
 

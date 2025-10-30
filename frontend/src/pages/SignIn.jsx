@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import AuthCard from "../components/layout/AuthCard";
 import { useToast } from "../components/toast/ToastContext";
-import "../styles/components/pages/login.css";
+import "../styles/components/pages/signin.css";
 
-const SignIn = ()=> {
+const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,40 +35,32 @@ const SignIn = ()=> {
 
   return (
     <div className="page-wrap">
-      <AuthCard title="Iniciar sesión" subtitle="Accede con tu usuario y contraseña">
-        <form className="form" onSubmit={handleSubmit}>
-          <label className="label">
-            Nombre
-            <input
-              className="input"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Tu nombre"
-            />
-          </label>
+      <div className="auth-card">
+        <h2 className="auth-title">Iniciar sesion</h2>
+        <p className="auth-subtitle">Accede con tu usuario y contraseña</p>
+        <div className="auth-content">
+          <form className="form" onSubmit={handleSubmit}>
+            <label className="label">
+              Nombre
+              <input className="input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Tu nombre" />
+            </label>
 
-          <label className="label">
-            Contraseña
-            <input
-              className="input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Contraseña"
-            />
-          </label>
+            <label className="label">
+              Contraseña
+              <input className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
+            </label>
 
-          <button className="primary-btn" type="submit" disabled={loading}>
-            {loading ? "Validando..." : "Entrar"}
-          </button>
-        </form>
+            <button className="primary-btn" type="submit" disabled={loading}>
+              {loading ? "Validando..." : "Entrar"}
+            </button>
+          </form>
 
-        <p className="aux-text">
-          ¿Aún no has creado una cuenta?{" "}
-          <Link to="/signup" className="aux-link">Crea una</Link>
-        </p>
-      </AuthCard>
+          <p className="aux-text">
+            ¿Aún no has creado una cuenta?{" "}
+            <Link to="/signup" className="aux-link">Crea una</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
