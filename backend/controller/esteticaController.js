@@ -37,6 +37,42 @@ export class EsteticaController{
 
     }
 
+    static async WorkerFinder(req,res){
+        try {
+            const workers = await EsteticaModel.WorkerFinder();
+            res.status(200).json(workers);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error en el servidor');
+        }
+    }
+
+    // Obtener servicios de un trabajador específico (desde /workerServices?workerId=)
+    static async WorkerServices(req,res){
+        const { workerId } = req.body;
+        try {
+            const services = await EsteticaModel.WorkerServices(workerId);
+            res.status(200).json(services);
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send('Error en el servidor');
+        }
+    }
+
+    // Obtener ID de un trabajador por su nombre de usuario (desde /catalogo)
+    static async getWorkerId(req,res){
+        const { username } = req.body;
+        try {
+            const worker = await EsteticaModel.getWorkerId(username);
+            res.status(200).json(worker);
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send('Error en el servidor');
+        }
+    }
+
 
     // static async login(req, res) {
     //     const { username, password } = req.body;
