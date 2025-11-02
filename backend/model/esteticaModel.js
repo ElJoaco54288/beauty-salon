@@ -50,6 +50,41 @@ export class EsteticaModel{
         }
     }
 
+    static async WorkerFinder(){
+        try {
+            const [rows] = await pool.query('SELECT * FROM usuarios WHERE rol = "trabajador"');
+            return rows;
+        } catch (error) {
+            console.log('Error en consulta WorkerFinder:', error);
+            throw error;
+        }
+    }
+
+    static async WorkerServices(workerId){
+        try {
+            const [rows] = await pool.query('SELECT * FROM Servicios WHERE trabajador_id = ?', [workerId]);
+            return rows;
+        } catch (error) {
+            console.log('Error en consulta WorkerServices:', error);
+            throw error;
+        }
+    }
+
+    static async getWorkerId(username){
+        try {
+            const [rows] = await pool.query('SELECT * FROM usuarios WHERE nombre = ?', [username]);
+            console.log(rows);
+            if (rows.length > 0) {
+                return rows[0].id_usuario;
+            } else {
+                return null; // No encontrado
+            }
+        } catch (error) {
+            console.log('Error en consulta getWorkerId:', error);
+            throw error;
+        }
+    }
+
     // static async accountExists(username, password) {
     //     try {
     //         const [result] = await pool.query(
