@@ -1,6 +1,6 @@
 #catalogo {
     grid-area: catalogo;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--hl-surface) 90%, transparent), color-mix(in srgb, var(--hl-bg) 95%, transparent));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--tarjeta) 90%, transparent), color-mix(in srgb, var(--bg) 95%, transparent));
     padding: 28px;
     display: flex;
     justify-content: center;
@@ -27,8 +27,8 @@
 
 /* cada tarjeta */
 .card {
-    background: linear-gradient(180deg, var(--hl-surface), var(--hl-bg));
-    border-radius: var(--rounded);
+    background: linear-gradient(180deg, var(--tarjeta), var(--bg));
+    border-radius: 15px;
     padding: 18px;
     min-height: 320px;
     display: flex;
@@ -37,10 +37,8 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    border: 2px solid color-mix(in srgb, var(--hl-border) 80%, transparent);
-    box-shadow: var(--shadow-soft);
+    border: 2px solid color-mix(in srgb, var(--border) 80%, transparent);
     transition: transform 220ms cubic-bezier(.2, .9, .2, 1), box-shadow 220ms, border-color 200ms;
-
     width: 100%;
     max-width: 240px;
     box-sizing: border-box;
@@ -57,16 +55,15 @@
     height: 10px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    background: linear-gradient(90deg, var(--hl-primary), var(--hl-primary-600));
-    box-shadow: 0 6px 16px color-mix(in srgb, var(--hl-primary) 20%, transparent);
+    background: linear-gradient(90deg, var(--bg), var(--border));
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--letras) 20%, transparent);
 }
 
 /* hover / foco */
 .card:hover,
 .card:focus-within {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: var(--shadow-strong);
-    border-color: color-mix(in srgb, var(--hl-border) 100%, transparent);
+    border-color: color-mix(in srgb, var(--border) 100%, transparent);
     z-index: 2;
 }
 
@@ -121,7 +118,7 @@
     display: inline-block;
     margin: 6px 0 12px;
     font-weight: 900;
-    color: var(--hl-bg);
+    color: var(--bg);
     background: linear-gradient(180deg, var(--hl-primary), var(--hl-primary-600));
     padding: 6px 10px;
     border-radius: 999px;
@@ -153,18 +150,18 @@
     width: 62px;
     padding: 8px 6px;
     border-radius: 8px;
-    border: 1px solid var(--hl-border);
+    border: 1px solid var(--border);
     text-align: center;
     font-weight: 700;
     font-size: 0.95rem;
-    background: var(--hl-bg);
+    background: var(--bg);
     color: var(--hl-text);
 }
 
 /* botón añadir */
 .card form input[type="submit"] {
     background: linear-gradient(180deg, var(--hl-primary-600), var(--hl-primary));
-    color: var(--hl-bg);
+    color: var(--bg);
     padding: 8px 12px;
     border-radius: 8px;
     border: none;
@@ -261,14 +258,14 @@
 
 
 .card {
-    background: linear-gradient(180deg, var(--hl-surface), var(--hl-bg));
+    background: linear-gradient(180deg, var(--tarjeta), var(--bg));
     border-radius: 10px;
     padding: 14px;
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid var(--hl-border);
+    border: 1px solid var(--border);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -282,7 +279,7 @@
     height: 140px;
     object-fit: cover;
     border-radius: 8px;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--hl-primary) 10%, transparent), color-mix(in srgb, var(--hl-surface) 90%, transparent));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--hl-primary) 10%, transparent), color-mix(in srgb, var(--tarjeta) 90%, transparent));
 }
 
 /* título */
@@ -300,7 +297,7 @@
 /* botón */
 .card form input[type="submit"] {
     background: linear-gradient(180deg, var(--hl-primary), var(--hl-primary-600));
-    color: var(--hl-bg);
+    color: var(--bg);
     border: none;
     padding: 8px 10px;
     border-radius: 8px;
