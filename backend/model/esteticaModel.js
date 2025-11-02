@@ -1,17 +1,8 @@
 import mysql from "mysql2/promise";
 // import { v4 as uuidv4 } from 'uuid'; //uuid >>>> id
 
-// Configuración de conexión con pool (a diferencia de createConection este es mas eficiente)
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    port: 3306,
-    password: '',
-    database: 'esteticabd',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+// backend/model/esteticaModel.js
+import pool from '../db.js'; // ajuste la ruta si es necesario
 
 export class EsteticaModel{
 
