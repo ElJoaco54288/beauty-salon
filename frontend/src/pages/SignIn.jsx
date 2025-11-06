@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useToast } from "../components/toast/ToastContext";
 import "../styles/components/pages/signin.css";
+import { Navigate } from "react-router-dom";
 
 const SignIn = () => {
   const [username, setUsername] = useState("");
@@ -30,6 +31,7 @@ const SignIn = () => {
       addToast({ type: "error", title: "Inicio fallido", message: msg });
     } finally {
       setLoading(false);
+      Navigate('/index.jsx')
     }
   };
 

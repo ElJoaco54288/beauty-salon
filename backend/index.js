@@ -2,6 +2,7 @@
 // router: Contiene los endpoints de la aplicacion para que los llamemos aca ;)
 
 import express from 'express'
+import session from 'express-session'
 import pool from './db.js'    // <- ajustá la ruta si tu db.js está en otra carpeta
 
 const app = express()
@@ -12,6 +13,12 @@ import cors from 'cors'
 
 app.use(express.json()); //interpreta el json mandado desde el frontend
 app.use(express.urlencoded({extended: true}))
+app.use(session({
+    secret: 'mi_secreto_super_seguro', //cambiar por un secreto real en producción
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // cambiar a true si usás HTTPS
+}));
 
 app.use(cors({
     origin: ["http://localhost:5173"],  //puerto en donde react se aloja

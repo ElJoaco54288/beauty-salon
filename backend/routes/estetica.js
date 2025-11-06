@@ -17,6 +17,10 @@ router.get('/workerServices', EsteticaController.WorkerServices);
 
 router.get('/getWorkerId', EsteticaController.getWorkerId);
 
+router.post('/logout', EsteticaController.SignOut);
+
+router.get('/getSessionUser', EsteticaController.getSessionUser);
+
 // router.post('/login', EsteticaController.login)
 
 // router.get('/home/:fecha', EsteticaController.getTurnosDisponibles);
