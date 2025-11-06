@@ -1,10 +1,14 @@
-import '../../styles/components/layout/catalogo.css'
+import '../../styles/components/layout/catalogoPersonas.css'
 
 const BDSimu = [
   { img: "/vite.svg", nombre: "Limpieza facial", trabajador: '1', precio: 1 },
   { img: "/vite.svg", nombre: "Limpieza facial", trabajador: '2', precio: 1 },
-  { img: "/vite.svg", nombre: "Limpieza facial", trabajador: '3', precio: 1 }
+  { img: "/vite.svg", nombre: "Limpieza facial", trabajador: '3', precio: 1 },
+  { img: "/vite.svg", nombre: "Limpieza facial", trabajador: '3', precio: 1 },
+  { img: "/vite.svg", nombre: "Limpieza facial", trabajador: '3', precio: 1 },
+  { img: "/vite.svg", nombre: "Limpieza facial", trabajador: '3', precio: 1 },
 ];
+
 
 const Catalogo = () => {
 
