@@ -18,7 +18,15 @@
   --green:  #83ef7f;
   --footer:  #c3d7d5;
 
- 
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+
+  --catalogoBg: #d7e7e5;             
+  --catalogoTarjeta: #D9FFF8;        
+  --catalogoBorder: #97feeb;          
+  --catalogoText: #000000;           
+  --catalogoBtn:#3fa29d;        
+  --catalogoBtn2: #9ad1c7;    
 }
 
 /* modo oscuro */
@@ -36,6 +44,13 @@ body.dark-mode {
   --footer:  #92a3a2;
 
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  --catalogoBg: #a4b1b0;             
+  --catalogoTarjeta: #71a59c;        
+  --catalogoBorder: #83ccbf;          
+  --catalogoText: #000000;           
+  --catalogoBtn:#1d4846;        
+  --catalogoBtn2: #628e86; 
 }
 
 
