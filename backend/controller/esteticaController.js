@@ -20,6 +20,7 @@ export class EsteticaController{
 
         if (user) {
             res.status(200).json({ message: 'Login correcto', user});
+            req.session.user = user;  // Guardar el usuario en la sesión
         } else {
             res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
         }
@@ -37,6 +38,27 @@ export class EsteticaController{
 
     }
 
+    static async SignOut(req,res){
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error al cerrar sesión:', err);
+                return res.status(500).json({ message: 'Error al cerrar sesión' });
+            }
+            res.clearCookie('connect.sid'); // Limpiar la cookie de sesión
+            res.status(200).json({ message: 'Sesión cerrada correctamente' });
+        }
+    );
+    }
+
+    static async getSessionUser(req,res){
+        if (req.session.user) {
+            res.status(200).json({ user: req.session.user });
+        } else {
+            res.status(401).json({ message: 'No hay usuario en sesión' });
+        }
+    }
+
+    // Obtener lista de trabajadores (desde /workerFinder)
     static async WorkerFinder(req,res){
         try {
             const workers = await EsteticaModel.WorkerFinder();
