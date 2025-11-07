@@ -1,12 +1,11 @@
 // src/App.jsx
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import SignIn from "./pages/SignIn";
+import SignIn from "./pages/signin";
 import SignUp from "./pages/signup";
-import Header from "./components/layout/header";
-import './App.css'
-import Catalogo from "./components/layout/catalogoPersonas";
 import Footer from "./components/layout/footer";
+import './App.css'
+import Inicio from "./pages/Inicio";
 
 export default function App() {
   return (
@@ -16,7 +15,7 @@ export default function App() {
           <Route path="/" element={<SignIn />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/inicio" element={<Inicio />} />
         
         </Routes>
         <Footer></Footer>

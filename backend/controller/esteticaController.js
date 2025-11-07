@@ -14,17 +14,34 @@ export class EsteticaController{
         }
     }
 
-    static async SignIn(req,res){
+    static async SignIn(req, res) {
+    try {
         const { username, password } = req.body;
         const user = await EsteticaModel.accountExists(username, password);
 
-        if (user) {
-            res.status(200).json({ message: 'Login correcto', user});
-            req.session.user = user;  // Guardar el usuario en la sesión
-        } else {
-            res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
+        if (!user) {
+        return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
         }
+
+        // Guardar en sesión ANTES de responder
+        req.session.user = user;
+
+        // Asegurarnos de que la sesión se haya guardado en el store
+        req.session.save(err => {
+        if (err) {
+            console.error('Error saving session:', err);
+            return res.status(500).json({ message: 'Error guardando la sesión' });
+        }
+        console.log('Usuario logueado y sesión guardada:', user.username || user);
+        // ahora respondemos con la seguridad de que la sesión existe
+        res.status(200).json({ message: 'Login correcto', user });
+        });
+    } catch (error) {
+        console.error('Error en SignIn:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
     }
+    }
+
 
     static async SignUp(req,res){
         const { username, password, contact, role, image } = req.body;
@@ -50,13 +67,17 @@ export class EsteticaController{
     );
     }
 
-    static async getSessionUser(req,res){
-        if (req.session.user) {
-            res.status(200).json({ user: req.session.user });
-        } else {
-            res.status(401).json({ message: 'No hay usuario en sesión' });
-        }
+    static async getSessionUser(req, res) {
+    console.log('--- getSessionUser called ---');
+    console.log('req.headers.cookie:', req.headers.cookie);  // ¿llega la cookie?
+    console.log('req.session:', req.session);                // ¿qué tiene la sesión?
+    if (req.session && req.session.user) {
+        return res.status(200).json({ user: req.session.user });
+    } else {
+        return res.status(401).json({ message: 'No hay usuario en sesión' });
     }
+    }
+
 
     // Obtener lista de trabajadores (desde /workerFinder)
     static async WorkerFinder(req,res){
