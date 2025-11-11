@@ -1,38 +1,37 @@
-
 .topbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  justify-content: space-between; 
+  padding: 10px 20px;
   background: linear-gradient(90deg, var(--white), var(--header));
   border-bottom: 1px solid var(--border);
 }
 
-.brand {
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--letras);
-}
-
-.nav {
+.logo {
   display: flex;
-  gap: 10px;
-}
-
-.nav-link {
-  padding: 8px 12px;
-  border-radius: 8px;
-  color: #0f172a;
-}
-
-.nav-link:hover {
-  background: var(--tarjeta);
-  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.04);
+  align-items: center;
 }
 
 .linklogo img {
   height: 60px;
   object-fit: cover;
   border-radius: 20px;
+}
 
+.divInicio {
+  margin-left: 15px;
+  flex-grow: 1; 
+}
+
+.divInicio p {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--letras);
+  margin: 0;
+}
+
+.topbar > *:last-child {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
