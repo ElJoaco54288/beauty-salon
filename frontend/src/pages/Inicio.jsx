@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../components/layout/header";
+import Catalogo from "../components/layout/catalogoPersonas";
 
 const Inicio = () => {
   const [user, setUser] = useState(null);
@@ -28,6 +29,7 @@ const Inicio = () => {
       <Header />
 
       <div>Hola iniciaste {user ? user.username : "Invitado"}</div>
+      <Catalogo />
     </div>
   );
 };
