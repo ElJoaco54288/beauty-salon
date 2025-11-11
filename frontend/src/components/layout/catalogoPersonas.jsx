@@ -86,15 +86,11 @@ const Catalogo = () => {
                   }}
                 />
                 <h2 className="titulo-card">{t.nombre || "—"}</h2>
-                <p className="precio-card">${precio}</p>
+                <p className="precio-card"> Tel: {telefono ? telefono: "—"}</p>
 
                 <form onSubmit={(e) => onSubmit(e, t)}>
-                  <input type="submit" value="Pedir un turno" />
+                  <input type="submit" value="Ver Informacion" />
                 </form>
-
-                <p style={{ fontSize: 12, color: "#666" }}>
-                  Tel: {telefono !== "—" ? <a href={`tel:${telefono}`}>{telefono}</a> : "—"}
-                </p>
               </div>
             );
           })

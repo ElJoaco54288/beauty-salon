@@ -90,6 +90,7 @@
     border-radius: 10px;
     font-size: 0.95rem;
     box-shadow: 0 6px 14px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
+    text-decoration: none;
 }
 
 
