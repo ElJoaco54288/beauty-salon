@@ -28,7 +28,7 @@ const Inicio = () => {
     <div>
       <Header />
 
-      <div>Hola iniciaste {user ? user.username : "Invitado"}</div>
+      
       <Catalogo />
     </div>
   );
