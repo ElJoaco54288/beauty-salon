@@ -1,6 +1,7 @@
 // src/components/catalogoPersonas/catalogoPersonas.jsx
 import { useEffect, useState } from "react";
 import "../../styles/components/layout/catalogoPersonas.css";
+import { Link } from "react-router-dom";
 
 const API_BASE = "http://localhost:3000"; // ajustá si tu backend corre en otro puerto
 const WORKERS_ENDPOINT = `${API_BASE}/workers`;
@@ -52,12 +53,6 @@ const Catalogo = () => {
     fetchTrabajadores();
   }, []);
 
-  const onSubmit = (e, trabajador) => {
-    e.preventDefault();
-    console.log(`Contrataste el servicio de ${trabajador.nombre}`);
-    // aquí podés abrir modal / redirigir a reserva / etc.
-  };
-
   if (loading) return <p>Cargando catálogo...</p>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
@@ -71,7 +66,6 @@ const Catalogo = () => {
             const keyId = t.id_usuario ?? t.id ?? index;
             const img = t.imagen_url || t.image || "/vite.svg";
             const telefono = t.telefono || t.contact || "—";
-            const precio = t.precio ?? t.price ?? "—";
 
             return (
               <div className="card" key={keyId}>
@@ -88,9 +82,9 @@ const Catalogo = () => {
                 <h2 className="titulo-card">{t.nombre || "—"}</h2>
                 <p className="precio-card"> Tel: {telefono ? telefono: "—"}</p>
 
-                <form onSubmit={(e) => onSubmit(e, t)}>
-                  <input type="submit" value="Ver Informacion" />
-                </form>
+                <Link to={`/servicios/${t.id_usuario}`}>
+                  <button type="button">Ver Información</button>
+                </Link>
               </div>
             );
           })

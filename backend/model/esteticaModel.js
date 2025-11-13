@@ -53,7 +53,7 @@ export class EsteticaModel{
 
     static async WorkerServices(workerId){
         try {
-            const [rows] = await pool.query('SELECT * FROM Servicios WHERE trabajador_id = ?', [workerId]);
+            const [rows] = await pool.query('SELECT * FROM servicios WHERE trabajador_id = ?', [workerId]);
             return rows;
         } catch (error) {
             console.log('Error en consulta WorkerServices:', error);
