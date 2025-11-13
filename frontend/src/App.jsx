@@ -6,6 +6,7 @@ import SignUp from "./pages/signup";
 import Footer from "./components/layout/footer";
 import './App.css'
 import Inicio from "./pages/Inicio";
+import Servicios from "./pages/servicios";
 
 export default function App() {
   return (

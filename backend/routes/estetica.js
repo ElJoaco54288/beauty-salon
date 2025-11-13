@@ -13,7 +13,7 @@ router.post('/signup', EsteticaController.SignUp);
 
 router.get('/workers', EsteticaController.WorkerFinder);
 
-router.get('/workerServices', EsteticaController.WorkerServices);
+router.get('/workerServices/:id', EsteticaController.WorkerServices);
 
 router.get('/getWorkerId', EsteticaController.getWorkerId);
 

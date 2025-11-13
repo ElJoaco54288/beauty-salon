@@ -92,9 +92,9 @@ export class EsteticaController{
 
     // Obtener servicios de un trabajador específico (desde /workerServices?workerId=)
     static async WorkerServices(req,res){
-        const { workerId } = req.body;
+        const id = req.params.id;
         try {
-            const services = await EsteticaModel.WorkerServices(workerId);
+            const services = await EsteticaModel.WorkerServices(id);
             res.status(200).json(services);
         }
         catch (error) {
