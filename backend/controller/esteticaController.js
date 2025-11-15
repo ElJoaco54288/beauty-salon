@@ -90,6 +90,18 @@ export class EsteticaController{
         }
     }
 
+    getWorkerById(req,res){
+
+        const id = req.params;
+        try {
+            const workers = EsteticaModel.getWorkerById(id);
+            res.status(200).json(workers);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error en el servidor');
+        }
+    }
+
     // Obtener servicios de un trabajador específico (desde /workerServices?workerId=)
     static async WorkerServices(req,res){
         const id = req.params.id;
@@ -113,6 +125,36 @@ export class EsteticaController{
         catch (error) {
             console.error(error);
             res.status(500).send('Error en el servidor');
+        }
+    }
+
+    static async getTurnosDisponibles(req, res) {
+        const { id } = req.params;
+        const { fecha } = req.body;
+
+        console.log("id del servicio -> ",id)
+        try {
+            const turnos = await EsteticaModel.getTurnosDisponibles(fecha, id);
+            res.status(200).json(turnos);
+        } catch (error) {
+            console.error('Error al obtener turnos:', error);
+            res.status(500).json({ message: 'Error al obtener turnos' });
+        }
+    }
+
+    static async reservarTurno(req, res) {
+        const { id, fecha, hora } = req.body;
+
+        try {
+          const resultado = await EsteticaModel.reservarTurno(id, fecha, hora);
+            if (resultado.affectedRows > 0) {
+                res.status(200).json({ message: 'Turno reservado correctamente' });
+            } else {
+                res.status(404).json({ message: 'Turno no disponible o inexistente' });
+            }
+        } catch (error) {
+          console.error('Error al reservar turno:', error);
+          res.status(500).json({ message: 'Error al reservar turno' });
         }
     }
 

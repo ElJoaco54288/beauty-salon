@@ -21,6 +21,14 @@ router.post('/logout', EsteticaController.SignOut);
 
 router.get('/getSessionUser', EsteticaController.getSessionUser);
 
+router.get('/turnero/:id', EsteticaController.getTurnosDisponibles);
+
+router.get('/getUserById', EsteticaController.getUserById);
+
+router.get('/getWorkerById/:id', EsteticaController.getWorkerById);
+
+router.post('/reservar', EsteticaController.reservarTurno);
+
 // router.post('/login', EsteticaController.login)
 
 // router.get('/home/:fecha', EsteticaController.getTurnosDisponibles);

@@ -7,6 +7,9 @@ import Footer from "./components/layout/footer";
 import './App.css'
 import Inicio from "./pages/Inicio";
 import Servicios from "./pages/servicios";
+import Turnero from "./pages/turnero";
+
+//prueba para ingresar trabajador img: https://i.pinimg.com/736x/0a/b2/29/0ab2290b5905085e67f5f30658ac2caf.jpg
 
 export default function App() {
   return (
@@ -18,6 +21,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/servicios/:id" element={<Servicios />} />
+          <Route path="/turnero/:id" element={<Turnero />} />
         
         </Routes>
         <Footer></Footer>

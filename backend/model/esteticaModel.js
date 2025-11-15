@@ -51,6 +51,16 @@ export class EsteticaModel{
         }
     }
 
+    static async getWorkerById(workerId){
+        try {
+            const [rows] = await pool.query('SELECT * FROM usuarios WHERE id_usuario = ?', [workerId]);
+            return rows;
+        } catch (error) {
+            console.log('Error en consulta getWorkerById:', error);
+            throw error;
+        }
+    }
+
     static async WorkerServices(workerId){
         try {
             const [rows] = await pool.query('SELECT * FROM servicios WHERE trabajador_id = ?', [workerId]);
@@ -75,6 +85,65 @@ export class EsteticaModel{
             throw error;
         }
     }
+
+    static async getTurnosDisponibles(fecha, serviceId) {
+        try {
+            const [result] = await pool.query(
+                'SELECT hora FROM turnos WHERE fecha = ? AND id_servicio = ? AND estado = "disponible" ORDER BY hora ASC',
+                [fecha, serviceId]
+            );
+
+            console.log('Turnos obtenidos:', result);
+            // Clasificar los horarios en Mañana, Tarde, Noche
+            const turnosPorMomento = {
+                Mañana: [],
+                Tarde: [],
+                Noche: []
+            };
+            // Clasificar y formatear las horas
+            result.forEach(turno => {
+                const hora = turno.hora;
+                const horaNum = parseInt(hora.split(":")[0]);
+                // Formatear la hora para mostrar solo hh:mm
+                const formattedHora = hora.substring(0, 5); // Extrae hh:mm
+                if (horaNum >= 8 && horaNum < 12) {
+
+                    turnosPorMomento.Mañana.push(formattedHora);
+                } else if (horaNum >= 12 && horaNum < 19) {
+                    turnosPorMomento.Tarde.push(formattedHora);
+                } else if (horaNum >= 19 && horaNum <= 23) {
+                    turnosPorMomento.Noche.push(formattedHora);
+                }
+            });
+            // Asegurarse de que los horarios estén ordenados
+            turnosPorMomento.Mañana.sort();
+            turnosPorMomento.Tarde.sort();
+            turnosPorMomento.Noche.sort();
+            return turnosPorMomento;
+        }
+
+        catch (error) {
+            console.error('Error en getTurnosDisponibles:', error);
+            throw error;
+        }
+    }
+
+    static async reservarTurno(id, fecha, hora) {
+        try {
+          const [result] = await pool.query(
+            `UPDATE turnos
+             SET estado = 'reservado' id_usuario = ?
+             WHERE fecha = ? AND hora = ? AND estado = 'disponible'`,
+            [id, fecha, hora]
+          );
+            return result;
+        } catch (error) {
+          console.error('Error en reservarTurno:', error);
+          throw error;
+        }
+    }
+
+
 
     // static async accountExists(username, password) {
     //     try {
