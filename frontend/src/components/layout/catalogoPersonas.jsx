@@ -82,8 +82,8 @@ const Catalogo = () => {
                 <h2 className="titulo-card">{t.nombre || "—"}</h2>
                 <p className="precio-card"> Tel: {telefono ? telefono: "—"}</p>
 
-                <Link to={`/servicios/${t.id_usuario}`}>
-                  <button type="button">Ver Información</button>
+                <Link to={`/servicios/${t.id_usuario}`} className="card-link">
+                  Ver Información
                 </Link>
               </div>
             );

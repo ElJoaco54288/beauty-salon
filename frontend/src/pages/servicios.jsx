@@ -1,6 +1,7 @@
 import "../styles/components/layout/catalogoPersonas.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const Servicios = () => {
@@ -36,7 +37,10 @@ const Servicios = () => {
                             <div className="card" key={index}>
                                 <h2 className="titulo-card">{s.nombre || "—"}</h2>
                                 <p className="precio-card">Precio: {s.precio ? `$${s.precio}` : "—"}</p>
-                                <p className="descripcion-card">Descripción: {s.descripcion ? s.descripcion : "—"}</p>
+                                <Link to={`/turnero/${s.id_usuario}`} className="card-link">
+                                    Ver turnos
+                                 </Link>
+                                
                             </div>
                         ))}
                     </div>
