@@ -25,6 +25,21 @@ const Header = () => {
     fetchSessionUser();
   }, []);
 
+  const [modoOscuro, setModoOscuro] = useState(() => {
+    const saved = localStorage.getItem("mode");
+    if (saved !== null) return JSON.parse(saved);
+    return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+  });
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const body = document.body;
+    body.classList.add("light-mode");
+    body.classList.toggle("dark-mode", modoOscuro);
+    localStorage.setItem("mode", JSON.stringify(modoOscuro));
+  }, [modoOscuro]);
+
+  const toggleModoOscuro = () => setModoOscuro(v => !v);
 
   return (
     <header className="topbar">
@@ -35,8 +50,17 @@ const Header = () => {
       <div className="divInicio">
         <p>Hola {user ? user.nombre : "Invitado"}</p>
       </div>
-      
 
+      <button
+      className="toggle-mode"
+      type="button"
+      onClick={toggleModoOscuro}
+      aria-pressed={modoOscuro}
+      aria-label={modoOscuro ? "Cambiar a modo claro (Alt+D)" : "Cambiar a modo oscuro (Alt+D)"}
+      title={modoOscuro ? "Modo oscuro activo — Alt+D" : "Modo claro activo — Alt+D"}
+      >
+      {modoOscuro ? "🌙 Dark" : "☀️ Light"}
+      </button>
       <HamburgerMenu />
 
     </header>

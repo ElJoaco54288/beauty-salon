@@ -1,213 +1,164 @@
-#catalogo {
-    grid-area: catalogo;
-    background-color: var(--catalogoBg);
-    padding: 28px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.catalogo-grid {
-    width: 100%;
-    max-width: 1200px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 240px); 
-    justify-content: center; 
-    justify-items: center; 
-    gap: 20px;
-    align-items: start;
-    padding: 6px;
-}
-
-/* cada tarjeta */
-.card {
-    background-color: var(--catalogoTarjeta);
-    border-radius: 12px;
-    padding: 18px;
-    min-height: 320px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    border: 2px solid color-mix(in srgb, var(--catalogoBorder) 80%, transparent);
-    box-shadow: var(--shadow);
-    transition: transform 220ms cubic-bezier(.2, .9, .2, 1), box-shadow 220ms, border-color 200ms;
-    width: 100%;
-    max-width: 240px;
-    box-sizing: border-box;
-}
-
-.card:hover,
-.card:focus-within {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: var(--shadow-strong);
-    border-color: color-mix(in srgb, var(--catalogoBorder) 100%, transparent);
-    z-index: 2;
-}
-
-
-@keyframes shine {
-    from {
-        transform: translateX(-100%) rotate(20deg);
-        opacity: 0;
-    }
-    50% { opacity: 0.8; }
-    to {
-        transform: translateX(100%) rotate(20deg);
-        opacity: 0;
-    }
-}
-
-/* imagen del producto */
-.img-card {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--catalogoBtn) 6%, transparent), color-mix(in srgb, #000 2%, transparent));
-    margin-bottom: 12px;
-}
-
-
-.titulo-card {
-    font-weight: 800;
-    color: var(--catalogoText);
-    text-transform: capitalize;
-    margin: 6px 0;
-    font-size: 1.05rem;
-}
-
-
-.precio-card {
-    display: inline-block;
-    margin: 6px 0 12px;
-    font-weight: 900;
-    color: var(--catalogoBg);
-    background-color: var(--catalogoBtn);
-    padding: 6px 10px;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    box-shadow: 0 6px 14px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
-}
-
-.card .card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-    padding-bottom: 6px;
-}
-
-
-.card {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 8px;
-    width: 100%;
-}
-
-
-/* botón añadir */
-.card-link {
-    background-color: var(--catalogoBtn2);
-    color: var(--catalogoBg);
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 900;
-    box-shadow: 0 8px 18px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
-    transition: transform 160ms ease, box-shadow 160ms ease;
-    text-decoration: none;
-}
-
-.card-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 36px color-mix(in srgb, var(--catalogoBtn) 24%, transparent);
-}
-
-
-/* responsive tweaks */
-@media (max-width: 900px) {
-    .catalogo-grid {
-        grid-template-columns: repeat(auto-fill, 200px); /* ancho menor en tablets */
-        gap: 14px;
-    }
-
-    .card {
-        max-width: 200px;
-        min-height: 300px;
-        padding: 14px;
-    }
-
-    .img-card {
-        height: 130px;
-    }
-}
-
-@media (max-width: 420px) {
-    .catalogo-grid {
-        grid-template-columns: repeat(auto-fill, 150px); /* ancho menor en móviles */
-        gap: 10px;
-        padding: 6px;
-    }
-
-    .card {
-        max-width: 150px;
-        min-height: 280px;
-        padding: 12px;
-    }
-
-    .img-card {
-        height: 110px;
-        border-radius: 8px;
-    }
-
-    .titulo-card {
-        font-size: 0.95rem;
-    }
-
-    .precio-card {
-        font-size: 0.9rem;
-        padding: 5px 8px;
-    }
+/* --- WRAPPER PRINCIPAL DEL CATÁLOGO --- */
+#catalogo-wrap {
+  grid-area: catalogo;
+  background-color: var(--catalogoBg);
+  padding: 28px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 /* variable para controlar ancho de las cards */
 :root {
-  --card-width: 240px; 
+  --card-width: 240px;
 }
 
-/* --- FLEX LAYOUT --- */
+/* --- LAYOUT FLEX DEL CATÁLOGO --- */
 .catalogo-grid {
-  display: flex;              
-  flex-wrap: wrap;           
-  gap: 20px;                 
-  justify-content: center;   
-  align-items: start;       
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
   max-width: 1200px;
   padding: 6px;
   margin: 0 auto;
-}
-
-/* cada tarjeta: tamaño fijo dentro del flex container */
-.catalogo-grid > .card,
-.catalogo-grid .card {       
-  flex: 0 0 var(--card-width); 
-  width: var(--card-width);   
-  max-width: var(--card-width);
   box-sizing: border-box;
 }
 
+/* --- TARJETA --- */
+.card {
+  background-color: var(--catalogoTarjeta);
+  border-radius: 12px;
+  padding: 18px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  /* si las "líneas grises" vienen del borde/sombra, podés comentar estas dos líneas */
+  border: 2px solid color-mix(in srgb, var(--catalogoBorder) 80%, transparent);
+  box-shadow: var(--shadow);
+
+  transition: transform 220ms cubic-bezier(.2, .9, .2, 1), 
+              box-shadow 220ms, 
+              border-color 200ms;
+  flex: 0 0 var(--card-width);
+  width: var(--card-width);
+  max-width: var(--card-width);
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: var(--shadow-strong);
+  border-color: color-mix(in srgb, var(--catalogoBorder) 100%, transparent);
+  z-index: 2;
+}
+
+/* imagen */
+.img-card {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--catalogoBtn) 6%, transparent),
+    color-mix(in srgb, #000 2%, transparent)
+  );
+  margin-bottom: 12px;
+}
+
+/* título */
+.titulo-card {
+  font-weight: 800;
+  color: var(--catalogoText);
+  text-transform: capitalize;
+  margin: 6px 0;
+  font-size: 1.05rem;
+}
+
+/* teléfono (precio-card) */
+.precio-card {
+  display: inline-block;
+  margin: 6px 0 12px;
+  font-weight: 900;
+  color: var(--catalogoBg);
+  background-color: var(--catalogoBtn);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
+}
+
+/* botón link */
+.card-link {
+  background-color: var(--catalogoBtn2);
+  color: var(--catalogoBg);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px color-mix(in srgb, var(--catalogoBtn) 24%, transparent);
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 900px) {
-  :root { --card-width: 200px; }
+  :root {
+    --card-width: 200px;
+  }
+
+  .card {
+    min-height: 300px;
+    padding: 14px;
+  }
+
+  .img-card {
+    height: 130px;
+  }
 }
 
 @media (max-width: 420px) {
-  :root { --card-width: 150px; }
+  :root {
+    --card-width: 150px;
+  }
+
+  .catalogo-grid {
+    gap: 10px;
+    padding: 6px;
+  }
+
+  .card {
+    min-height: 280px;
+    padding: 12px;
+  }
+
+  .img-card {
+    height: 110px;
+    border-radius: 8px;
+  }
+
+  .titulo-card {
+    font-size: 0.95rem;
+  }
+
+  .precio-card {
+    font-size: 0.9rem;
+    padding: 5px 8px;
+  }
 }

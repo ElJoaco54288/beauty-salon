@@ -1,6 +1,11 @@
-.admin-agregar{
-    padding: 20px;
-    max-width: 720px;
+
+
+.cositos-arriba{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
 .date-arrows{
@@ -10,28 +15,48 @@
     margin-bottom: 16px;
 }
 
+
+.date-arrows button{
+    background-color: #d7e7e5;
+    border: none;
+}
+
 .list-timetable{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 8px;
-    margin-bottom: 16px;
+    margin: 30px 150px;
 }
 
-.list-timetable button{
-    padding: "8px 10px";
-    border-radius: 6;
-    cursor: pointer
+.botoncito{
+    padding: 20px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    color: #1a1c1c;
 }
 
-.admin-agregar p {
-    margin-bottom: 12px;
+.admin-container p {
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 
 #button-container{
     display: flex;
-    gap: 8px;
+    gap: 30px;
+    justify-content:center;
+    margin-bottom:15px
+
 }
 
-#button-containcer button{
+#button-container button{
     padding: 8px 12px;
+    border-radius: 20px;
+}
+
+#verdecito{
+    background-color: var(--green);
+}
+
+#rojito{
+    background-color: var(--red);
 }
