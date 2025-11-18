@@ -90,15 +90,16 @@ export class EsteticaController{
         }
     }
 
-    getWorkerById(req,res){
-
-        const id = req.params;
+    static async getWorkerById(req, res) {
         try {
-            const workers = EsteticaModel.getWorkerById(id);
-            res.status(200).json(workers);
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Error en el servidor');
+            const workerId = req.params.id;
+            if (!workerId) return res.status(400).json({ message: 'Falta id' });
+
+            const workers = await EsteticaModel.getWorkerById(workerId);
+            return res.status(200).json({ worker: workers });
+        } catch (err) {
+            console.error('Error getWorkerById:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
         }
     }
 
@@ -128,33 +129,120 @@ export class EsteticaController{
         }
     }
 
-    static async getTurnosDisponibles(req, res) {
-        const { id } = req.params;
-        const { fecha } = req.body;
-
-        console.log("id del servicio -> ",id)
+    // backend/controller/esteticaController.js (dentro EsteticaController)
+    static async getServicioTurnero(req, res) {
         try {
-            const turnos = await EsteticaModel.getTurnosDisponibles(fecha, id);
-            res.status(200).json(turnos);
+            const workerId = req.params.workerId;
+            const rawName = req.params.serviceName || '';
+            const serviceName = decodeURIComponent(rawName).trim();
+
+            console.log('Controller.getServicioTurnero -> workerId:', workerId, 'serviceName:', serviceName);
+
+            if (!workerId || !serviceName) {
+            return res.status(400).json({ message: 'Falta workerId o serviceName' });
+            }
+
+            const servicio = await EsteticaModel.getServicioTurnero(workerId, serviceName);
+
+            if (!servicio) {
+            console.log('Controller.getServicioTurnero -> no encontrado', { workerId, serviceName });
+            return res.status(404).json({ message: 'Servicio no encontrado para ese trabajador' });
+            }
+
+            return res.status(200).json({ serviceId: servicio.id_servicio, service: servicio });
+        } catch (error) {
+            console.error('Error en getServicioTurnero:', error);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    }
+
+
+
+    static async getTurnosDisponibles(req, res) {
+        try {
+            const serviceId = req.params.id;
+            let { fecha } = req.query; // ahora por query ?fecha=YYYY-MM-DD
+
+            if (!serviceId) return res.status(400).json({ message: 'Falta id del servicio' });
+
+            if (!fecha) {
+                // default: fecha de hoy en YYYY-MM-DD
+                const d = new Date();
+                fecha = d.toISOString().split('T')[0];
+            }
+
+            console.log("getTurnosDisponibles -> serviceId:", serviceId, "fecha:", fecha);
+
+            const turnos = await EsteticaModel.getTurnosDisponibles(fecha, serviceId);
+            return res.status(200).json(turnos);
         } catch (error) {
             console.error('Error al obtener turnos:', error);
-            res.status(500).json({ message: 'Error al obtener turnos' });
+            return res.status(500).json({ message: 'Error al obtener turnos' });
         }
     }
 
     static async reservarTurno(req, res) {
-        const { id, fecha, hora } = req.body;
-
         try {
-          const resultado = await EsteticaModel.reservarTurno(id, fecha, hora);
+            const { userId, serviceId, fecha, hora } = req.body;
+
+            if (!userId || !serviceId || !fecha || !hora) {
+                return res.status(400).json({ message: 'Faltan datos para reservar (userId, serviceId, fecha, hora)' });
+            }
+
+            const resultado = await EsteticaModel.reservarTurno(userId, serviceId, fecha, hora);
+
             if (resultado.affectedRows > 0) {
-                res.status(200).json({ message: 'Turno reservado correctamente' });
+                return res.status(200).json({ message: 'Turno reservado correctamente' });
             } else {
-                res.status(404).json({ message: 'Turno no disponible o inexistente' });
+                return res.status(404).json({ message: 'Turno no disponible o inexistente' });
             }
         } catch (error) {
-          console.error('Error al reservar turno:', error);
-          res.status(500).json({ message: 'Error al reservar turno' });
+            console.error('Error al reservar turno:', error);
+            return res.status(500).json({ message: 'Error al reservar turno' });
+        }
+    } 
+
+    static async getServiceById(req, res) {
+        try {
+            const serviceId = req.params.id;
+            if (!serviceId) return res.status(400).json({ message: 'Falta id del servicio' });
+
+            const servicio = await EsteticaModel.getServiceById(serviceId);
+            if (!servicio) return res.status(404).json({ message: 'Servicio no encontrado' });
+
+            // devolvemos el servicio con el nombre del trabajador incluido
+            return res.status(200).json({ service: servicio });
+        } catch (err) {
+            console.error('Error en getServiceById:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    }
+
+    static async definirDisponibles(req, res) {
+        const { fecha, horariosDisponibles } = req.body;
+        try {
+            for (const horario of horariosDisponibles) {
+                await EsteticaModel.definirDisponibles(fecha, horario);
+            }
+            res.status(201).json({ message: 'Turnos agregados correctamente' });
+        } catch (error) {
+            console.error('Error al definir horarios disponibles:', error);
+            res.status(500).json({ message: 'Error en el servidor' });
+        }
+    }
+
+    static async borrarTurno(req, res){
+        const { id } = req.params;
+        try {
+            const resultado = await EsteticaModel.borrarTurno(id);
+            if (resultado.affectedRows > 0) {
+                res.status(201).json({ message: 'Turno borrado correctamente' });
+            } else {
+                res.status(400).json({ message: 'No se pudo borrar el turno' });
+            }
+        } catch (error) {
+            console.error('Error al borrar turno:', error);
+            res.status(500).json({ message: 'Error en el servidor' });
         }
     }
 

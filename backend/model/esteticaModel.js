@@ -1,9 +1,4 @@
-import mysql from "mysql2/promise";
-// import { v4 as uuidv4 } from 'uuid'; //uuid >>>> id
-
-// backend/model/esteticaModel.js
-import pool from '../db.js'; // ajuste la ruta si es necesario
-
+import pool from '../db.js';
 export class EsteticaModel{
 
     static async aaa(req,res){
@@ -51,7 +46,7 @@ export class EsteticaModel{
         }
     }
 
-    static async getWorkerById(workerId){
+    static async getWorkerById(workerId) {
         try {
             const [rows] = await pool.query('SELECT * FROM usuarios WHERE id_usuario = ?', [workerId]);
             return rows;
@@ -86,6 +81,29 @@ export class EsteticaModel{
         }
     }
 
+    static async getServicioTurnero(workerId, serviceName) {
+        try {
+            const nameNorm = (serviceName || "").toString().trim().toLowerCase();
+
+            const sql = `
+            SELECT id_servicio, nombre, precio, trabajador_id
+            FROM servicios
+            WHERE trabajador_id = ?
+                AND LOWER(TRIM(nombre)) = ?
+            LIMIT 1
+            `;
+            const params = [workerId, nameNorm];
+
+            console.log('Model.getServicioTurnero -> SQL params:', params);
+            const [rows] = await pool.query(sql, params);
+            console.log('Model.getServicioTurnero -> rows:', rows);
+            return rows.length > 0 ? rows[0] : null;
+        } catch (error) {
+            console.error('Error en consulta getServicioTurnero:', error);
+            throw error;
+        }
+    }
+
     static async getTurnosDisponibles(fecha, serviceId) {
         try {
             const [result] = await pool.query(
@@ -93,53 +111,88 @@ export class EsteticaModel{
                 [fecha, serviceId]
             );
 
-            console.log('Turnos obtenidos:', result);
-            // Clasificar los horarios en Mañana, Tarde, Noche
-            const turnosPorMomento = {
-                Mañana: [],
-                Tarde: [],
-                Noche: []
-            };
-            // Clasificar y formatear las horas
+            const turnosPorMomento = { Mañana: [], Tarde: [], Noche: [] };
+
             result.forEach(turno => {
                 const hora = turno.hora;
-                const horaNum = parseInt(hora.split(":")[0]);
-                // Formatear la hora para mostrar solo hh:mm
-                const formattedHora = hora.substring(0, 5); // Extrae hh:mm
+                const horaNum = parseInt(hora.split(":")[0], 10);
+                const formattedHora = hora.substring(0, 5);
                 if (horaNum >= 8 && horaNum < 12) {
-
-                    turnosPorMomento.Mañana.push(formattedHora);
+                turnosPorMomento.Mañana.push(formattedHora);
                 } else if (horaNum >= 12 && horaNum < 19) {
-                    turnosPorMomento.Tarde.push(formattedHora);
+                turnosPorMomento.Tarde.push(formattedHora);
                 } else if (horaNum >= 19 && horaNum <= 23) {
-                    turnosPorMomento.Noche.push(formattedHora);
+                turnosPorMomento.Noche.push(formattedHora);
                 }
             });
-            // Asegurarse de que los horarios estén ordenados
+
             turnosPorMomento.Mañana.sort();
             turnosPorMomento.Tarde.sort();
             turnosPorMomento.Noche.sort();
-            return turnosPorMomento;
-        }
 
-        catch (error) {
+        return turnosPorMomento;
+        } catch (error) {
             console.error('Error en getTurnosDisponibles:', error);
             throw error;
         }
     }
 
-    static async reservarTurno(id, fecha, hora) {
+
+    static async reservarTurno(userId, serviceId, fecha, hora) {
         try {
-          const [result] = await pool.query(
-            `UPDATE turnos
-             SET estado = 'reservado' id_usuario = ?
-             WHERE fecha = ? AND hora = ? AND estado = 'disponible'`,
-            [id, fecha, hora]
-          );
+            const [result] = await pool.query(
+                `UPDATE turnos
+                SET estado = 'reservado', id_usuario = ?
+                WHERE fecha = ? AND hora = ? AND id_servicio = ? AND estado = 'disponible'`,
+                [userId, fecha, hora, serviceId]
+            );
             return result;
         } catch (error) {
-          console.error('Error en reservarTurno:', error);
-          throw error;
+            console.error('Error en reservarTurno:', error);
+            throw error;
+        }
+    }
+
+    static async getServiceById(serviceId) {
+        try {
+            const sql = `
+            SELECT s.*, u.id_usuario AS trabajador_id, u.nombre AS trabajador_nombre
+            FROM servicios s
+            JOIN usuarios u ON s.trabajador_id = u.id_usuario
+            WHERE s.id_servicio = ?
+            LIMIT 1
+            `;
+            const [rows] = await pool.query(sql, [serviceId]);
+            return rows.length > 0 ? rows[0] : null;
+        } catch (error) {
+            console.error('Error en getServiceById:', error);
+            throw error;
+        }
+    }
+
+    static async definirDisponibles(fecha, hora, serviceId) {
+        try {
+            const [resultado] = await pool.query(
+                `INSERT INTO turnos (fecha, hora, id_servicio, estado) VALUES (?, ?, ?, 'disponible')`,
+                [fecha, hora, serviceId]
+            );
+            return resultado;
+        } catch (error) {
+            console.error('Error en definirDisponibles:', error);
+            throw error;
+        }
+    }
+
+    static async borrarTurno(turnoId){
+        try {
+            const [resultado] = await pool.query(
+                'DELETE FROM turnos WHERE id_turno = ?',
+                [turnoId]
+            );
+            return resultado;
+        } catch (error) {
+            console.error('Error en borrarTurno:', error);
+            throw error;
         }
     }
 

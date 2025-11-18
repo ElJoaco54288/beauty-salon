@@ -20,13 +20,26 @@
 
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 
-
+  /* Catalogo */
   --catalogoBg: #d7e7e5;             
   --catalogoTarjeta: #D9FFF8;        
   --catalogoBorder: #97feeb;          
   --catalogoText: #000000;           
   --catalogoBtn:#3fa29d;        
-  --catalogoBtn2: #9ad1c7;    
+  --catalogoBtn2: #9ad1c7;  
+  
+  /* Turnero */
+  --color-text: #000000;
+  --color-bg: #d7e7e5;
+  --color-card: #c7ffda;
+  --color-white: #d9fff8;
+  --color-btn-primary: #9ad1c7;
+  --color-btn-secondary: #83d288;
+  --color-header: #c4f4c7;
+  --color-footer: #c3d7d5;
+  --color-border: #3fa29d;
+  --color-danger: #f96262;
+  --color-success: #83ef7f;
 }
 
 /* modo oscuro */

@@ -17,17 +17,24 @@ router.get('/workerServices/:id', EsteticaController.WorkerServices);
 
 router.get('/getWorkerId', EsteticaController.getWorkerId);
 
+router.get('/serviceTurnero/:workerId/:serviceName', EsteticaController.getServicioTurnero);
+
 router.post('/logout', EsteticaController.SignOut);
 
 router.get('/getSessionUser', EsteticaController.getSessionUser);
 
 router.get('/turnero/:id', EsteticaController.getTurnosDisponibles);
 
-router.get('/getUserById', EsteticaController.getUserById);
-
 router.get('/getWorkerById/:id', EsteticaController.getWorkerById);
 
 router.post('/reservar', EsteticaController.reservarTurno);
+
+router.get('/service/:id', EsteticaController.getServiceById);
+
+router.post('/agregar', EsteticaController.definirDisponibles);
+
+router.delete('/borrar/:id', EsteticaController.borrarTurno);
+
 
 // router.post('/login', EsteticaController.login)
 

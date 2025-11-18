@@ -1,0 +1,37 @@
+.admin-agregar{
+    padding: 20px;
+    max-width: 720px;
+}
+
+.date-arrows{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.list-timetable{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.list-timetable button{
+    padding: "8px 10px";
+    border-radius: 6;
+    cursor: pointer
+}
+
+.admin-agregar p {
+    margin-bottom: 12px;
+}
+
+#button-container{
+    display: flex;
+    gap: 8px;
+}
+
+#button-containcer button{
+    padding: 8px 12px;
+}
