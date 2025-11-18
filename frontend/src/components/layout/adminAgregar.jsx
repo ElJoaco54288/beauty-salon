@@ -82,26 +82,30 @@ const AdminPage = () => {
 
     return (
         <div className="admin-container">
-            <h1>Admin - Agregar disponibilidad</h1>
+            <div className="cositos-arriba">
+                <h1>Agregar disponibilidad</h1>
 
-            <div className="date-arrows">
-                <button onClick={prevDay} aria-label="Anterior">◀</button>
-                <div style={{ minWidth: 220, textAlign: "center" }}>{formatDate(selectedDate)}</div>
-                <button onClick={nextDay} aria-label="Siguiente">▶</button>
+                <div className="date-arrows">
+                    <button onClick={prevDay} aria-label="Anterior">◀</button>
+                    <div style={{ minWidth: 220, textAlign: "center" }}>{formatDate(selectedDate)}</div>
+                    <button onClick={nextDay} aria-label="Siguiente">▶</button>
+                </div>
+
+                <h2> Selecciona las horas de atencion</h2>
             </div>
-
-            <h2> Selecciona las horas (30 min de diferencia). Las seleccionadas se añadirán al arreglo para el backend. </h2>
+            
+           
 
             <div className="list-timetable">
                 {slots.map(slot => {
                     const active = selectedSlots.includes(slot);
                     return (
-                        <button
+                        <button className="botoncito"
                             key={slot}
                             onClick={() => toggleSlot(slot)}
                             style={{
-                                border: active ? "2px solid #0078d4" : "1px solid #ccc",
-                                background: active ? "#e6f2ff" : "#fff"
+                                border: active ? "2px solid #3fa29d" : "1px solid #ccc", 
+                                background: active ? "#b2e3c2ff" : "#C7FFDA"
                             }}
                         >
                             {slot}
@@ -115,10 +119,10 @@ const AdminPage = () => {
             <p><strong>Horas seleccionadas:</strong> {selectedSlots.length ? selectedSlots.join(", ") : "—"} </p>
 
             <div id="button-container">
-                <button onClick={handleSubmit}>
-                    Enviar al backend
+                <button id="verdecito" onClick={handleSubmit}>
+                    Enviar
                 </button>
-                <button onClick={() => { setSelectedSlots([]); }}>
+                <button id="rojito" onClick={() => { setSelectedSlots([]); }}>
                     Limpiar selección
                 </button>
             </div>

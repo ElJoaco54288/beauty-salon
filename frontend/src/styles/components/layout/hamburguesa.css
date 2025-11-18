@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  overflow: visible; /* por si el menú se extiende hacia afuera */
 }
 
 .avatar-btn {
@@ -49,21 +49,27 @@
 .nav {
   position: absolute;
   top: 60px;
-  right: 0;
+
+  /* ANTES: right: 0;  AHORA: que se abra a la izquierda del avatar */
+  right: calc(100% + 8px);
+  left: auto;
+
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.25s ease;
+
+  /* animación consistente */
+  transform: translateY(-10px) translateX(0);
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s ease;
   z-index: 20;
 }
 
 .nav.open {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) translateX(0);
 }
 
 .nav ul {
@@ -104,8 +110,10 @@
 @media (max-width: 600px) {
   .nav {
     top: 50px;
-    right: 10px;
+    /* mismo comportamiento en mobile: se abre a la izquierda del avatar */
+    right: calc(100% + 6px);
   }
+
   .avatar-btn {
     width: 42px;
     height: 42px;

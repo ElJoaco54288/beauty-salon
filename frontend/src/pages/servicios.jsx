@@ -1,6 +1,7 @@
 import "../styles/components/layout/catalogoPersonas.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Header from "../components/layout/header";
 
 const Servicios = () => {
   const { id } = useParams(); // id del trabajador
@@ -62,6 +63,7 @@ const Servicios = () => {
 
   return (
     <div>
+      <Header />
       <h1>Servicios del Trabajador {id}</h1>
       <div id="catalogo-wrap">
         {servicios.length === 0 ? (

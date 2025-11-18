@@ -35,3 +35,26 @@
   display: flex;
   align-items: center;
 }
+
+.toggle-mode{
+  appearance: none;
+  border: 1px solid var(--hl-border);
+  background: linear-gradient(180deg, var(--hl-surface), var(--hl-bg));
+  color: var(--hl-text);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--hl-primary) 10%, transparent);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.toggle-mode:hover{
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--hl-surface) 70%, var(--hl-accent));
+  border-color: var(--hl-primary);
+  box-shadow: 0 10px 20px color-mix(in srgb, var(--hl-primary) 16%, transparent);
+}
+.toggle-mode:focus{
+  outline: 3px solid color-mix(in srgb, var(--hl-accent) 55%, transparent);
+  outline-offset: 2px;
+}
