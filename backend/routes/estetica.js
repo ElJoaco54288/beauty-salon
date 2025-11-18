@@ -31,7 +31,7 @@ router.post('/reservar', EsteticaController.reservarTurno);
 
 router.get('/service/:id', EsteticaController.getServiceById);
 
-router.post('/agregar', EsteticaController.definirDisponibles);
+router.post('/agregar/:id', EsteticaController.definirDisponibles);
 
 router.delete('/borrar/:id', EsteticaController.borrarTurno);
 

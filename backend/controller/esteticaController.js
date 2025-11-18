@@ -220,9 +220,10 @@ export class EsteticaController{
 
     static async definirDisponibles(req, res) {
         const { fecha, horariosDisponibles } = req.body;
+        const { id } = req.params.id; // id del servicio
         try {
             for (const horario of horariosDisponibles) {
-                await EsteticaModel.definirDisponibles(fecha, horario);
+                await EsteticaModel.definirDisponibles(fecha, horario, id);
             }
             res.status(201).json({ message: 'Turnos agregados correctamente' });
         } catch (error) {
