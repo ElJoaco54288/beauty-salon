@@ -1,0 +1,260 @@
+/* frontend/src/styles/components/adminCatalogo.css */
+
+/* Reusa tus variables de tema (ej. --catalogoBtn, --catalogoBg, etc.) */
+
+/* Page wrapper */
+.admin-catalog-page {
+    min-height: 100vh;
+    background: var(--catalogoBg);
+}
+
+/* Center inner column */
+.admin-catalog-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px;
+    box-sizing: border-box;
+}
+
+.admin-catalog-inner {
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+/* Top bar with title + action */
+.admin-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.admin-title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--catalogoText);
+    font-weight: 800;
+}
+
+/* top actions */
+.admin-top-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Buttons (distinct from .card-link) */
+.admin-btn {
+    background: var(--catalogoBtn2);
+    color: var(--catalogoBg);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
+    transition: transform .15s ease, box-shadow .15s ease, opacity .12s ease;
+}
+
+.admin-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px color-mix(in srgb, var(--catalogoBtn) 24%, transparent);
+}
+
+/* primary / add */
+.admin-btn--add {
+    padding: 9px 14px;
+}
+
+/* primary variant */
+.admin-btn--primary {
+    background: var(--catalogoBtn);
+    color: var(--catalogoBg);
+}
+
+/* danger variant */
+.admin-btn--danger {
+    background: color-mix(in srgb, #ff6b6b 88%, var(--catalogoBtn2) 12%);
+    color: var(--catalogoBg);
+}
+
+/* Add form */
+.admin-add-form,
+.admin-edit-panel {
+    background: color-mix(in srgb, var(--catalogoTarjeta) 92%, transparent);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+
+.admin-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.admin-label {
+    font-size: 0.9rem;
+    color: var(--catalogoText);
+    font-weight: 700;
+}
+
+.admin-input {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--catalogoBorder) 40%, transparent);
+    background: white;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+/* form actions layout */
+.admin-form-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+/* grid of cards */
+.admin-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+/* each admin card */
+.admin-card {
+    background-color: var(--catalogoTarjeta);
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow);
+    border: 2px solid color-mix(in srgb, var(--catalogoBorder) 80%, transparent);
+    width: 240px;
+    box-sizing: border-box;
+}
+
+.admin-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.admin-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.admin-card-title {
+    margin: 0;
+    font-weight: 800;
+    color: var(--catalogoText);
+    text-transform: capitalize;
+}
+
+.admin-card-price {
+    display: inline-block;
+    margin: 0;
+    font-weight: 900;
+    color: var(--catalogoBg);
+    background-color: var(--catalogoBtn);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
+}
+
+/* actions area inside card: responsive with wrap */
+.admin-card-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    width: 100%;
+    padding-top: 6px;
+}
+
+/* buttons inside card: make them compact */
+.admin-card-actions .admin-btn {
+    flex: 1 1 90px;
+    min-width: 90px;
+    max-width: calc(50% - 8px);
+    padding: 8px 10px;
+    font-size: 0.9rem;
+}
+
+/* edit panel: slightly different visual */
+.admin-edit-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+/* messages */
+.admin-loading {
+    color: var(--catalogoText);
+}
+
+.admin-error {
+    color: #ff6b6b;
+    font-weight: 700;
+}
+
+.admin-empty {
+    color: color-mix(in srgb, var(--catalogoText) 60%, transparent);
+}
+
+/* responsive: narrow screens */
+@media (max-width: 900px) {
+    .admin-card {
+        width: 200px;
+        min-height: 260px;
+        padding: 14px;
+    }
+
+    .admin-img {
+        height: 120px;
+    }
+}
+
+@media (max-width: 420px) {
+    .admin-card {
+        width: 150px;
+        min-height: 240px;
+        padding: 12px;
+    }
+
+    .admin-img {
+        height: 100px;
+        border-radius: 8px;
+    }
+
+    .admin-card-actions .admin-btn {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}

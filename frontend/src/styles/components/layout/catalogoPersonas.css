@@ -162,3 +162,54 @@
     padding: 5px 8px;
   }
 }
+
+
+
+
+
+
+
+
+
+/* --- Add Service Button (reusa estilo de card-link pero con espaciado) --- */
+.add-service-btn {
+  padding: 10px 14px;
+  font-weight: 900;
+  border-radius: 8px;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
+}
+
+/* Formulario desplegable para agregar servicio */
+.add-service-form {
+  background: color-mix(in srgb, var(--catalogoTarjeta) 90%, transparent);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 12px 0 18px;
+  display: block;
+  box-shadow: var(--shadow);
+}
+
+/* filas dentro del formulario */
+.add-service-form .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+/* inputs del formulario */
+.add-service-form .form-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--catalogoBorder) 40%, transparent);
+  background: white;
+  font-size: 0.95rem;
+}
+
+/* acciones del formulario */
+.add-service-form .form-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  margin-top: 8px;
+}

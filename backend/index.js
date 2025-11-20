@@ -1,4 +1,4 @@
-// backend/index.js
+// backend/index.js (cambia la sección CORS por esto, luego reinicia el servidor)
 import express from 'express'
 import session from 'express-session'
 import pool from './db.js'
@@ -8,33 +8,49 @@ import routes from './routes/estetica.js'
 const app = express()
 const port = 3000
 
-// 1️⃣ CORS PRIMERO, con credentials habilitados
+// CORS global (usa esto primero)
 app.use(cors({
-  origin: 'http://localhost:5173',  // frontend Vite
-  credentials: true,                // NECESARIO para cookies / sesiones
-  methods: ['GET', 'POST']
+  origin: 'http://localhost:5173',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-// 2️⃣ Luego el body parser
+// Manejo explícito y seguro de preflight (OPTIONS)
+// NO usar app.options('*', ...) para evitar el error de path-to-regexp en algunas versiones.
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    // log para debug
+    console.log('--- preflight OPTIONS received for:', req.path);
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    return res.sendStatus(204); // No Content
+  }
+  next();
+});
+
+// body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 3️⃣ Luego la sesión (con opciones correctas)
+// session
 app.use(session({
   secret: 'mi_secreto_super_seguro',
   resave: false,
-  saveUninitialized: false, // mejor false que true
+  saveUninitialized: false,
   cookie: {
-    secure: false,   // en dev con HTTP → false; en prod con HTTPS → true
+    secure: false,
     httpOnly: true,
-    sameSite: 'lax'  // evita que el navegador bloquee la cookie
+    sameSite: 'lax'
   }
 }));
 
-// 4️⃣ Tus rutas
+// rutas (después de CORS)
 app.use('/', routes);
 
-// 5️⃣ Test DB
+// test DB + start
 (async () => {
   try {
     const [rows] = await pool.query('SELECT 1 + 1 AS ok');
@@ -44,7 +60,6 @@ app.use('/', routes);
   }
 })();
 
-// 6️⃣ Iniciar servidor
 app.listen(port, () => {
   console.log(`Example app listening on port: ${port}`)
 });

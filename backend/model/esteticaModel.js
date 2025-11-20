@@ -183,18 +183,42 @@ export class EsteticaModel{
         }
     }
 
-    static async borrarTurno(turnoId){
+    static async deleteService(serviceId) {
         try {
-            const [resultado] = await pool.query(
-                'DELETE FROM turnos WHERE id_turno = ?',
-                [turnoId]
-            );
-            return resultado;
+            const [result] = await pool.query('DELETE FROM servicios WHERE id_servicio = ?', [serviceId]);
+            return result;
         } catch (error) {
-            console.error('Error en borrarTurno:', error);
+            console.error('Error en deleteService:', error);
             throw error;
         }
     }
+
+    static async createService(nombre, precio, trabajador_id) {
+        try {
+            const [result] = await pool.query(
+            'INSERT INTO servicios (nombre, precio, trabajador_id) VALUES (?, ?, ?)',
+            [nombre, precio, trabajador_id]
+            );
+            return result; // result.insertId disponible
+        } catch (error) {
+            console.error('Error en createService (model):', error);
+            throw error;
+        }
+    }
+
+    static async updateService(serviceId, nombre, precio) {
+        try {
+            const [result] = await pool.query(
+            `UPDATE servicios SET nombre = ?, precio = ? WHERE id_servicio = ?`,
+            [nombre, precio, serviceId]
+            );
+            return result;
+        } catch (error) {
+            console.error('Error en updateService (model):', error);
+            throw error;
+        }
+    }
+
 
 
 

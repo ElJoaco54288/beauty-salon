@@ -4,11 +4,12 @@ const Hero = () => {
     return (
         <section className="container">
             <video autoPlay loop muted playsInline className="background-clip">
-                <source src="/videotiburon.mp4" type="video/mp4" />
+                <source src="/hero.mp4" type="video/mp4" />
             </video>    
 
             <div className="content">
-                <h1 id="texto">" Bienvenido a HolyShop! Consigue productos de VTubers, voces exclusivas, ilustraciones y más."</h1>
+                <h1 id="texto"> Belleza y michi cuidado a tu alcance! consulta nuestros michi trabajadores, disfruta de sus cautivadoras apariencias 😺</h1>
+                    
                 <a href="#catalogo"> Ver ahora! </a>
             </div>
         </section> 

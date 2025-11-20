@@ -1,5 +1,5 @@
 import '../../styles/components/layout/header.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HamburgerMenu from './hamburguesa.jsx';
 
 import { useEffect, useState } from "react";
@@ -30,7 +30,6 @@ const Header = () => {
     if (saved !== null) return JSON.parse(saved);
     return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
   });
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const body = document.body;

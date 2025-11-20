@@ -251,20 +251,125 @@ export class EsteticaController{
         }
     }
 
-    static async borrarTurno(req, res){
-        const { id } = req.params;
+    static async deleteService(req, res) {
         try {
-            const resultado = await EsteticaModel.borrarTurno(id);
-            if (resultado.affectedRows > 0) {
-                res.status(201).json({ message: 'Turno borrado correctamente' });
-            } else {
-                res.status(400).json({ message: 'No se pudo borrar el turno' });
+            const serviceId = req.params.id;
+            if (!req.session || !req.session.user) return res.status(401).json({ message: "No autenticado" });
+
+            // obtener servicio
+            const servicio = await EsteticaModel.getServiceById(serviceId);
+            if (!servicio) return res.status(404).json({ message: "Servicio no encontrado" });
+
+            const requesterId = req.session.user.id_usuario;
+            const requesterRole = req.session.user.rol;
+
+            // permitir si es dueño o rol == 'admin' (ajustar nombre del rol si aplica)
+            if (Number(servicio.trabajador_id) !== Number(requesterId) && requesterRole !== 'admin') {
+                return res.status(403).json({ message: "No autorizado para borrar este servicio" });
             }
-        } catch (error) {
-            console.error('Error al borrar turno:', error);
-            res.status(500).json({ message: 'Error en el servidor' });
+
+            const result = await EsteticaModel.deleteService(serviceId);
+            if (result.affectedRows > 0) {
+                return res.status(200).json({ message: "Servicio borrado" });
+            } else {
+                return res.status(400).json({ message: "No se pudo borrar el servicio" });
+            }
+        } catch (err) {
+            console.error('Error deleteService:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
         }
     }
+
+    static async createService(req, res) {
+        try {
+            const workerIdRaw = req.params.workerId;
+            const workerId = Number(workerIdRaw);
+            if (!workerIdRaw || Number.isNaN(workerId)) {
+                return res.status(400).json({ message: 'workerId inválido en la ruta' });
+            }
+
+            // validación de sesión: sólo el propio trabajador o admin puede crear (opcional)
+            if (!req.session || !req.session.user) {
+                return res.status(401).json({ message: 'No autenticado' });
+            }
+            const requesterId = Number(req.session.user.id_usuario);
+            const requesterRole = req.session.user.rol;
+
+            if (requesterRole !== 'admin' && requesterId !== workerId) {
+                return res.status(403).json({ message: 'No autorizado para crear servicios para este trabajador' });
+            }
+
+            const { nombre, precio } = req.body;
+            if (!nombre || !String(nombre).trim()) {
+                return res.status(400).json({ message: 'Falta nombre del servicio' });
+            }
+
+            const parsedPrice = precio === null || precio === undefined || precio === '' ? null : Number(precio);
+            if (parsedPrice !== null && Number.isNaN(parsedPrice)) {
+                return res.status(400).json({ message: 'Precio inválido' });
+            }
+
+            // opcional: verificar que el trabajador exista
+            const worker = await EsteticaModel.getWorkerById(workerId);
+            if (!worker || worker.length === 0) {
+                return res.status(404).json({ message: 'Trabajador no encontrado' });
+            }
+
+            const result = await EsteticaModel.createService(nombre.trim(), parsedPrice, workerId);
+
+            // devolver el registro creado completo (consulta por id)
+            const newService = await EsteticaModel.getServiceById(result.insertId);
+            return res.status(201).json({ message: 'Servicio creado', service: newService });
+        } catch (err) {
+            console.error('Error en createService:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    }
+
+    static async updateService(req, res) {
+        try {
+            const serviceIdRaw = req.params.id;
+            const serviceId = Number(serviceIdRaw);
+            if (!serviceIdRaw || Number.isNaN(serviceId)) {
+                return res.status(400).json({ message: 'serviceId inválido' });
+            }
+
+            // auth: solo admin o propietario del servicio
+            if (!req.session || !req.session.user) {
+                return res.status(401).json({ message: 'No autenticado' });
+            }
+            const requesterId = Number(req.session.user.id_usuario);
+            const requesterRole = req.session.user.rol;
+
+            // obtener servicio actual para saber su trabajador_id
+            const servicioActual = await EsteticaModel.getServiceById(serviceId);
+            if (!servicioActual) return res.status(404).json({ message: 'Servicio no encontrado' });
+
+            if (requesterRole !== 'admin' && Number(servicioActual.trabajador_id) !== requesterId) {
+                return res.status(403).json({ message: 'No autorizado para editar este servicio' });
+            }
+
+            const { nombre, precio } = req.body;
+            if (!nombre || !String(nombre).trim()) {
+                return res.status(400).json({ message: 'Falta nombre' });
+            }
+            const parsedPrice = precio === null || precio === undefined || precio === '' ? null : Number(precio);
+            if (parsedPrice !== null && Number.isNaN(parsedPrice)) {
+                return res.status(400).json({ message: 'Precio inválido' });
+            }
+
+            await EsteticaModel.updateService(serviceId, nombre.trim(), parsedPrice);
+
+            // devolver el servicio actualizado
+            const updated = await EsteticaModel.getServiceById(serviceId);
+            return res.status(200).json({ message: 'Servicio actualizado', service: updated });
+        } catch (err) {
+            console.error('Error en updateService:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    }
+
+
 
 
     // static async login(req, res) {

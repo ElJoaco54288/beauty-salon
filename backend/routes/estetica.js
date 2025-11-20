@@ -33,7 +33,12 @@ router.get('/service/:id', EsteticaController.getServiceById);
 
 router.post('/agregar/:id', EsteticaController.definirDisponibles);
 
-router.delete('/borrar/:id', EsteticaController.borrarTurno);
+router.delete('/servicedeletion/:id', EsteticaController.deleteService);
+
+router.put('/serviceupdate/:id', EsteticaController.updateService);  
+
+router.post('/service/:workerId', EsteticaController.createService);
+
 
 
 // router.post('/login', EsteticaController.login)
