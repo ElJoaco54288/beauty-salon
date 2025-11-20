@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/layout/header";
 import Catalogo from "../components/layout/catalogoPersonas";
+import Hero from "../components/layout/hero";
 
 const Inicio = () => {
   const [user, setUser] = useState(null);
@@ -25,9 +26,10 @@ const Inicio = () => {
   }, []);
 
   return (
-    <div>
+    <div id="inicio">
       <Header />
 
+      <Hero />
       
       <Catalogo />
     </div>

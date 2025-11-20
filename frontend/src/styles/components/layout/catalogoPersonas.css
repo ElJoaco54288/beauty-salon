@@ -2,7 +2,7 @@
 #catalogo-wrap {
   grid-area: catalogo;
   background-color: var(--catalogoBg);
-  padding: 28px;
+  padding: 50px;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
