@@ -219,16 +219,35 @@ export class EsteticaController{
     }
 
     static async definirDisponibles(req, res) {
-        const { fecha, horariosDisponibles } = req.body;
-        const { id } = req.params.id; // id del servicio
         try {
-            for (const horario of horariosDisponibles) {
-                await EsteticaModel.definirDisponibles(fecha, horario, id);
+            const { fecha, horariosDisponibles } = req.body;
+            const serviceId = req.params.id; // id del servicio (id_servicio)
+
+            if (!serviceId) {
+                return res.status(400).json({ message: "Falta id del servicio en la ruta" });
             }
-            res.status(201).json({ message: 'Turnos agregados correctamente' });
+
+            if (!fecha || !Array.isArray(horariosDisponibles) || horariosDisponibles.length === 0) {
+                return res.status(400).json({ message: "Faltan datos: fecha y/o horariosDisponibles" });
+            }
+
+            // opcional: deduplicar horarios para no insertar repetidos en la misma petición
+            const uniqueHorarios = [...new Set(horariosDisponibles)];
+
+            // Insertar cada horario
+            for (const horario of uniqueHorarios) {
+                // validar formato simple hh:mm
+                if (!/^\d{2}:\d{2}$/.test(horario)) {
+                    console.warn("Horario con formato inválido, se salta:", horario);
+                    continue;
+                }
+                await EsteticaModel.definirDisponibles(fecha, horario, serviceId);
+            }
+
+            return res.status(201).json({ message: "Turnos agregados correctamente" });
         } catch (error) {
-            console.error('Error al definir horarios disponibles:', error);
-            res.status(500).json({ message: 'Error en el servidor' });
+            console.error("Error al definir horarios disponibles:", error);
+            return res.status(500).json({ message: "Error en el servidor" });
         }
     }
 
