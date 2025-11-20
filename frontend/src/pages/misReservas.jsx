@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "../styles/components/pages/misReservas.css";
+
+
 const MisReservas = () => {
+
 
     const { id } = useParams();
 
@@ -27,18 +31,18 @@ const MisReservas = () => {
     }, [id]);
 
     return (
-        <div>
-            <h1>Mis Reservas</h1>
+        <div> 
+            <div id="h1wapo"><h1>Mis Reservas</h1></div>
             {reservas.length === 0 ? (
                 <p>No tienes reservas.</p>
             ) : (
-                <ul>
+                <ul id="misReservas">
                     {reservas.map((reserva) => (
                         <li key={reserva.id_turno}>
-                            Servicio: {reserva.nombre} <br />
-                            Fecha: {new Date(reserva.fecha).toLocaleDateString()} <br />
-                            Hora: {reserva.hora} <br />
-                            <button >
+                            <p><strong>Servicio:</strong> {reserva.nombre}</p> <br />
+                            <p><strong>Fecha:</strong> {new Date(reserva.fecha).toLocaleDateString()}</p> <br />
+                            <p><strong>Hora:</strong> {reserva.hora}</p> <br />
+                            <button id="botonreserva">
                                 Cancelar reserva    
                             </button>   
                         </li>

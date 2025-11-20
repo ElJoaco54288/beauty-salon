@@ -1,0 +1,86 @@
+#misReservas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;             
+    gap: 20px;
+    padding: 20px;
+    height: 40vh;
+    margin: 0;
+}
+
+#misReservas li {
+    list-style-type: none;
+    padding: 20px 24px;
+    margin: 10px;
+    background-color: var(--tarjeta);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    min-width: 220px;
+    max-width: 280px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#misReservas li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+#misReservas li p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: #333;       
+}
+
+
+#h1wapo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+
+#h1wapo h1 {
+    font-size: 1.8rem;
+    color: #222;
+    position: relative;
+}
+
+
+#botonreserva {
+   width: 120px;
+   height: 38px;
+   background-color: var(--btn1);
+   border-radius: 10px;
+   border: none;
+   cursor: pointer;
+   font-size: 0.9rem;
+   font-weight: 600;
+   color: #000000;
+   margin-top: 10px;
+   transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+
+#botonreserva:hover {
+    background-color: var(--btn2); 
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+#botonreserva:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+#misReservas + p,
+#h1wapo + p {
+    text-align: center;
+    margin-top: 16px;
+    color: #555;
+    font-size: 1rem;
+}

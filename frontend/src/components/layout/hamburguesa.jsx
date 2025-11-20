@@ -18,7 +18,7 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
           credentials: "include",
         });
         if (response.ok) {
-          const data = await response.json();
+          const data = await response.json()
           // puede venir null si no hay sesión
           setUser(data?.user ?? null);
         } else {
@@ -33,7 +33,6 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
     fetchSessionUser();
   }, []);
 
-  // logout (igual que tenías)
   const handleLogout = useCallback(async () => {
     try {
       const response = await fetch("http://localhost:3000/logout", {
@@ -56,7 +55,6 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
     }
   }, [navigate]);
 
-  // Cierra el menú si se hace click fuera o Escape
   useEffect(() => {
     function handleOutside(e) {
       if (
@@ -85,13 +83,11 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
     };
   }, [isOpen]);
 
-  // <-- FIX: calcular userId con optional chaining para que nunca intente leer propiedades de null
   const userId =
     user?.usuario_id ?? user?.id_usuario ?? user?.id ?? null;
 
   return (
     <div className="hamburger-wrapper" aria-live="polite">
-      {/* Avatar / disparador */}
       <button
         ref={buttonRef}
         className="avatar-btn"
@@ -104,12 +100,10 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
         <img src={avatarSrc} alt="Usuario" />
       </button>
 
-      {/* Backdrop (cierra al tocar) */}
       {isOpen && (
         <div className="menu-backdrop" onClick={() => setIsOpen(false)} />
       )}
 
-      {/* Menú desplegable */}
       <nav
         id="user-menu"
         ref={menuRef}
@@ -122,7 +116,6 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
             <Link to="/perfil">Perfil</Link>
           </li>
           <li role="menuitem">
-            {/* si no hay user, dejamos '#' y prevenimos la navegación */}
             {user ? (
               <Link to={`/misreservas/${userId}`}>Reservas</Link>
             ) : (
