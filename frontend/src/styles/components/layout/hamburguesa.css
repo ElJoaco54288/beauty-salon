@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible; /* por si el menú se extiende hacia afuera */
+  overflow: visible;
 }
 
 .avatar-btn {
@@ -49,8 +49,6 @@
 .nav {
   position: absolute;
   top: 60px;
-
-  /* ANTES: right: 0;  AHORA: que se abra a la izquierda del avatar */
   right: calc(100% + 8px);
   left: auto;
 
@@ -60,7 +58,7 @@
   opacity: 0;
   visibility: hidden;
 
-  /* animación consistente */
+  
   transform: translateY(-10px) translateX(0);
   transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s ease;
   z-index: 20;
@@ -110,7 +108,6 @@
 @media (max-width: 600px) {
   .nav {
     top: 50px;
-    /* mismo comportamiento en mobile: se abre a la izquierda del avatar */
     right: calc(100% + 6px);
   }
 

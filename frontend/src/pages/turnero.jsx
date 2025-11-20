@@ -5,7 +5,7 @@ import '../styles/components/pages/turnero.css';
 const diasSemana = ["LUN", "MAR", "MIER", "JUE", "VIE", "SAB", "DOM"];
 
 const Turnero = () => {
-  const { id } = useParams(); // aquí id = serviceId (id_servicio)
+  const { id } = useParams(); 
 
   const [usuarioId, setUsuarioId] = useState(null);
   const [trabajadorNombre, setTrabajadorNombre] = useState("");
@@ -13,7 +13,7 @@ const Turnero = () => {
 
   const [startDate, setStartDate] = useState(() => {
     const d = new Date();
-    const dayIndex = (d.getDay() + 6) % 7; // 0 = lunes
+    const dayIndex = (d.getDay() + 6) % 7; 
     d.setDate(d.getDate() - dayIndex);
     d.setHours(0, 0, 0, 0);
     return d;
@@ -23,7 +23,6 @@ const Turnero = () => {
   const [horarios, setHorarios] = useState({ Mañana: [], Tarde: [], Noche: [] });
   const [loadingHorarios, setLoadingHorarios] = useState(false);
 
-  // cambiar semana (suma días)
   const cambiarSemana = (cantidadDias) => {
     setStartDate((prev) => {
       const nueva = new Date(prev);
@@ -44,7 +43,6 @@ const Turnero = () => {
 
   const handleDiaClick = (index) => setDiaSeleccionado(index);
 
-  // devuelve array [{ label, date, iso }]
   const getDiasRotados = useCallback(() => {
     return Array.from({ length: 7 }).map((_, i) => {
       const fecha = new Date(startDate);
@@ -59,7 +57,6 @@ const Turnero = () => {
     });
   }, [startDate]);
 
-  // obtener usuario en sesión (id)
   useEffect(() => {
     (async () => {
       try {
@@ -80,7 +77,6 @@ const Turnero = () => {
     })();
   }, []);
 
-  // --- NUEVO: obtener información del servicio (y del trabajador relacionado) ---
   useEffect(() => {
     if (!id) return;
     (async () => {
@@ -96,7 +92,6 @@ const Turnero = () => {
         const data = await res.json().catch(() => null);
         const svc = data?.service ?? null;
         if (svc) {
-          // nombres según lo que devuelve el backend
           setTrabajadorNombre(svc.trabajador_nombre ?? svc.nombre_trabajador ?? svc.nombre ?? "");
           setTrabajadorId(svc.trabajador_id ?? svc.id_usuario ?? null);
         } else {
@@ -111,7 +106,6 @@ const Turnero = () => {
     })();
   }, [id]);
 
-  // traer horarios por serviceId y fecha
   const fetchHorarios = useCallback(async () => {
     if (!id) return;
     setLoadingHorarios(true);
@@ -124,7 +118,6 @@ const Turnero = () => {
       const res = await fetch(`http://localhost:3000/turnero/${id}?fecha=${fechaISO}`, { method: "GET" });
 
       if (!res.ok) {
-        // Propagar estado vacío si error
         console.warn("Turnero: error al traer horarios", res.status);
         setHorarios({ Mañana: [], Tarde: [], Noche: [] });
         return;
@@ -148,7 +141,6 @@ const Turnero = () => {
     fetchHorarios();
   }, [fetchHorarios]);
 
-  // reservar turno: enviar userId (usuarioId), serviceId (id), fecha, hora
   const reservarTurno = async (hora) => {
     if (!usuarioId) {
       alert("Debes iniciar sesión para reservar.");

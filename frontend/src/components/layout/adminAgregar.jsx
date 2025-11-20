@@ -16,7 +16,7 @@ function isoDate(d) {
 }
 
 const AdminPage = () => {
-  const { id } = useParams(); // id = id_servicio desde la URL
+  const { id } = useParams(); 
   const [selectedDate, setSelectedDate] = useState(() => {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -26,16 +26,16 @@ const AdminPage = () => {
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
-  // slots 07:00 .. 23:30 step 30min
+  
   const slots = useMemo(() => {
     const list = [];
     const startHour = 7;
-    const endHour = 23; // last hour 23:30 will be included manually
+    const endHour = 23; 
     for (let h = startHour; h <= endHour; h++) {
       list.push(`${pad(h)}:00`);
       list.push(`${pad(h)}:30`);
     }
-    // remove any slot beyond 23:30 (defensive)
+   
     return list.filter(s => {
       const hh = Number(s.split(":")[0]);
       const mm = Number(s.split(":")[1]);
@@ -67,7 +67,7 @@ const AdminPage = () => {
     setSelectedSlots([]);
   }
 
-  // POST to backend
+  // POST a backend
   const handleSubmit = async () => {
     if (!id) {
       alert("Falta el id del servicio en la URL.");
@@ -80,7 +80,7 @@ const AdminPage = () => {
 
     const payload = {
       fecha: isoDate(selectedDate),
-      horariosDisponibles: selectedSlots.slice().sort(), // enviar ordenado
+      horariosDisponibles: selectedSlots.slice().sort(), 
     };
 
     setSubmitting(true);
