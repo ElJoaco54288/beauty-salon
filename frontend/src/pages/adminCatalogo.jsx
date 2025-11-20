@@ -4,7 +4,7 @@ import Header from "../components/layout/header";
 import { useNavigate, useParams } from "react-router-dom";
 
 const AdminCatalogo = () => {
-  const { id: paramId } = useParams(); // opcional: id en la URL (puede ser id del trabajador)
+  const { id: paramId } = useParams();
   const navigate = useNavigate();
 
   const [servicios, setServicios] = useState([]);
@@ -12,19 +12,16 @@ const AdminCatalogo = () => {
   const [error, setError] = useState(null);
   const [deleting, setDeleting] = useState(null);
 
-  // add service UI state
   const [showAddForm, setShowAddForm] = useState(false);
   const [newName, setNewName] = useState("");
   const [newPrice, setNewPrice] = useState("");
   const [adding, setAdding] = useState(false);
 
-  // edit UI state
   const [editingId, setEditingId] = useState(null);
   const [editName, setEditName] = useState("");
   const [editPrice, setEditPrice] = useState("");
   const [savingEdit, setSavingEdit] = useState(false);
 
-  // Decide si usamos el id de la URL o el id de sesión
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -99,7 +96,6 @@ const AdminCatalogo = () => {
       if (updated) {
         setServicios(prev => prev.map(s => (String(s.id_servicio ?? s.id) === String(serviceId) ? updated : s)));
       } else {
-        // fallback: mutate local item
         setServicios(prev => prev.map(s => {
           if (String(s.id_servicio ?? s.id) === String(serviceId)) {
             return { ...s, nombre: editName.trim(), precio: priceNum };
@@ -140,7 +136,6 @@ const AdminCatalogo = () => {
     }
   };
 
-  // ADD service handlers (igual que antes)
   const toggleAddForm = () => {
     setShowAddForm(v => !v);
     if (!showAddForm) {

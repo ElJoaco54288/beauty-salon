@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "../../styles/components/layout/catalogoPersonas.css";
 import { Link } from "react-router-dom";
 
-const API_BASE = "http://localhost:3000"; // ajustá si tu backend corre en otro puerto
+const API_BASE = "http://localhost:3000"; 
 const WORKERS_ENDPOINT = `${API_BASE}/workers`;
 
 const Catalogo = () => {
@@ -35,7 +35,7 @@ const Catalogo = () => {
           throw new Error(`Server ${response.status}: ${serverMsg}`);
         }
 
-        // Aseguramos que sea array
+       
         if (!Array.isArray(data)) {
           console.warn("Respuesta /workers no es array:", data);
           setTrabajadores([]);

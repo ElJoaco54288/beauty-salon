@@ -1,21 +1,27 @@
 #inicioadmin {
-    margin: 40px 650px;
+    width: 100%;
+    background-color: var(--catalogoBg); 
+    display: flex;
+    justify-content: center; 
+    align-items: center;      
+    padding: 10px 0;         
 }
 
-#inicioadmin button{
+#inicioadmin button {
     height: 40px;
     width: 200px;
     font-size: 20px;
     border-radius: 10px;
-    background-color: var(--btn1) ;
+    background-color: var(--btn1);
+    border: none;
+    cursor: pointer;
     transition: transform 220ms cubic-bezier(.2, .9, .2, 1), 
                 box-shadow 220ms, 
                 border-color 200ms;
 }
 
-#inicioadmin button:hover{
-    background-color:var(--border) ;
+#inicioadmin button:hover {
+    background-color: var(--border);
     transform: translateY(-10px) scale(1.02);
     box-shadow: var(--shadow-strong);
-
 }

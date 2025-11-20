@@ -26,8 +26,6 @@ const SignUp = () => {
         timeout: 8000
       });
       addToast({ type: "success", title: "Registrado", message: res.data.message || "Usuario creado" });
-      // Opcional: redirigir al signin si querés automatic redirect:
-      // navigate('/signin')
     } catch (err) {
       const msg = err?.response?.data?.message || "Error en la conexión";
       addToast({ type: "error", title: "Registro fallido", message: msg });

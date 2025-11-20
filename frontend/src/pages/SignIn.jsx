@@ -25,13 +25,12 @@ const SignIn = () => {
         {
           headers: { "Content-Type": "application/json" },
           timeout: 8000,
-          withCredentials: true // ← MUY IMPORTANTE para que el navegador acepte Set-Cookie cross-origin
+          withCredentials: true 
         }
       );
 
       addToast({ type: "success", title: "Bienvenido", message: res.data.message || "Login correcto" });
 
-      // navegar SOLO si el login fue exitoso
       navigate('/inicio');
     } catch (err) {
       const msg = err?.response?.data?.message || "Error en la conexión";

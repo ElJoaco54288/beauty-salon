@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import Header from "../components/layout/header";
 
 const Servicios = () => {
-  const { id } = useParams(); // id del trabajador
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const [servicios, setServicios] = useState([]);
-  const [loadingService, setLoadingService] = useState(null); // id temporal en carga
+  const [loadingService, setLoadingService] = useState(null); 
 
   useEffect(() => {
     const fetchServicios = async () => {
@@ -33,12 +33,10 @@ const Servicios = () => {
     if (id) fetchServicios();
   }, [id]);
 
-  // handler para obtener id_servicio y navegar al turnero
   const handleGoToTurnero = async (serviceName) => {
     if (!id || !serviceName) return;
     try {
       setLoadingService(serviceName);
-      // encode serviceName para la URL
       const encodedName = encodeURIComponent(serviceName);
       const res = await fetch(`http://localhost:3000/serviceTurnero/${id}/${encodedName}`, {
         method: "GET"
@@ -51,7 +49,6 @@ const Servicios = () => {
       const serviceId = body.serviceId;
       if (!serviceId) throw new Error("No se obtuvo id_servicio");
 
-      // navegar al turnero con el id del servicio
       navigate(`/turnero/${serviceId}`);
     } catch (err) {
       console.error("No se pudo obtener id_servicio:", err);
@@ -71,7 +68,6 @@ const Servicios = () => {
         ) : (
           <div className="catalogo-grid" id="catalogo">
             {servicios.map((s) => {
-              // mostrar nombre del servicio. Ajustá si la clave del nombre cambia.
               const serviceName = s.nombre ?? s.name ?? s.servicio_nombre ?? "";
 
               return (

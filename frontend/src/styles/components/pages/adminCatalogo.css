@@ -1,14 +1,8 @@
-/* frontend/src/styles/components/adminCatalogo.css */
-
-/* Reusa tus variables de tema (ej. --catalogoBtn, --catalogoBg, etc.) */
-
-/* Page wrapper */
 .admin-catalog-page {
     min-height: 100vh;
     background: var(--catalogoBg);
 }
 
-/* Center inner column */
 .admin-catalog-wrap {
     display: flex;
     justify-content: center;
@@ -22,7 +16,6 @@
     box-sizing: border-box;
 }
 
-/* Top bar with title + action */
 .admin-topbar {
     display: flex;
     justify-content: space-between;
@@ -38,14 +31,12 @@
     font-weight: 800;
 }
 
-/* top actions */
 .admin-top-actions {
     display: flex;
     gap: 8px;
     align-items: center;
 }
 
-/* Buttons (distinct from .card-link) */
 .admin-btn {
     background: var(--catalogoBtn2);
     color: var(--catalogoBg);
@@ -63,24 +54,20 @@
     box-shadow: 0 18px 36px color-mix(in srgb, var(--catalogoBtn) 24%, transparent);
 }
 
-/* primary / add */
 .admin-btn--add {
     padding: 9px 14px;
 }
 
-/* primary variant */
 .admin-btn--primary {
     background: var(--catalogoBtn);
     color: var(--catalogoBg);
 }
 
-/* danger variant */
 .admin-btn--danger {
     background: color-mix(in srgb, #ff6b6b 88%, var(--catalogoBtn2) 12%);
     color: var(--catalogoBg);
 }
 
-/* Add form */
 .admin-add-form,
 .admin-edit-panel {
     background: color-mix(in srgb, var(--catalogoTarjeta) 92%, transparent);
@@ -112,7 +99,6 @@
     box-sizing: border-box;
 }
 
-/* form actions layout */
 .admin-form-actions {
     display: flex;
     gap: 8px;
@@ -121,7 +107,6 @@
     flex-wrap: wrap;
 }
 
-/* grid of cards */
 .admin-grid {
     display: flex;
     flex-wrap: wrap;
@@ -133,7 +118,6 @@
     box-sizing: border-box;
 }
 
-/* each admin card */
 .admin-card {
     background-color: var(--catalogoTarjeta);
     border-radius: 12px;
@@ -184,7 +168,6 @@
     box-shadow: 0 6px 14px color-mix(in srgb, var(--catalogoBtn) 18%, transparent);
 }
 
-/* actions area inside card: responsive with wrap */
 .admin-card-actions {
     display: flex;
     gap: 8px;
@@ -196,7 +179,6 @@
     padding-top: 6px;
 }
 
-/* buttons inside card: make them compact */
 .admin-card-actions .admin-btn {
     flex: 1 1 90px;
     min-width: 90px;
@@ -205,7 +187,6 @@
     font-size: 0.9rem;
 }
 
-/* edit panel: slightly different visual */
 .admin-edit-panel {
     display: flex;
     flex-direction: column;
@@ -214,7 +195,6 @@
     width: 100%;
 }
 
-/* messages */
 .admin-loading {
     color: var(--catalogoText);
 }
@@ -228,7 +208,6 @@
     color: color-mix(in srgb, var(--catalogoText) 60%, transparent);
 }
 
-/* responsive: narrow screens */
 @media (max-width: 900px) {
     .admin-card {
         width: 200px;
