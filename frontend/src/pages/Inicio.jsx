@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/layout/header";
 import Catalogo from "../components/layout/catalogoPersonas";
 import Hero from "../components/layout/hero";
+import "../styles/components/pages/inicio.css";
 
 const Inicio = () => {
   const [user, setUser] = useState(null);
@@ -30,6 +31,10 @@ const Inicio = () => {
       <Header />
 
       <Hero />
+
+      <div id="inicioadmin">
+        <button>Acceder al admin </button>
+      </div>
       
       <Catalogo />
     </div>

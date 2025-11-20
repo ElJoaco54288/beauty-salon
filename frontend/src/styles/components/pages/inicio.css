@@ -1,0 +1,21 @@
+#inicioadmin {
+    margin: 40px 650px;
+}
+
+#inicioadmin button{
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: var(--btn1) ;
+    transition: transform 220ms cubic-bezier(.2, .9, .2, 1), 
+                box-shadow 220ms, 
+                border-color 200ms;
+}
+
+#inicioadmin button:hover{
+    background-color:var(--border) ;
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-strong);
+
+}
