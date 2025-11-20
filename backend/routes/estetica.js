@@ -39,6 +39,10 @@ router.put('/serviceupdate/:id', EsteticaController.updateService);
 
 router.post('/service/:workerId', EsteticaController.createService);
 
+router.get('/misreservas/:id', EsteticaController.getMisReservas);
+
+router.delete('/cancelarreserva/:id', EsteticaController.cancelarReserva);
+
 
 
 // router.post('/login', EsteticaController.login)

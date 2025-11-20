@@ -369,6 +369,37 @@ export class EsteticaController{
         }
     }
 
+    static async getMisReservas(req, res) {
+        try {
+            const userId = req.params.id;
+            if (!userId) return res.status(400).json({ message: 'Falta id del usuario' });
+            const reservas = await EsteticaModel.getMisReservas(userId);
+            return res.status(200).json(reservas);
+        }
+        catch(err){
+            console.error('Error en getMisReservas:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+
+        }
+    }
+
+    static async cancelarReserva(req, res) {
+        try {
+            const reservaId = req.params.id;
+            if (!reservaId) return res.status(400).json({ message: 'Falta id de la reserva' });
+            const result = await EsteticaModel.cancelarReserva(reservaId);
+            if (result.affectedRows > 0) {
+                return res.status(200).json({ message: 'Reserva cancelada' });
+            } else {
+                return res.status(404).json({ message: 'Reserva no encontrada o no se pudo cancelar' });
+            }
+        }
+        catch(err){
+            console.error('Error en cancelarReserva:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    }
+
 
 
 

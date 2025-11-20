@@ -219,6 +219,39 @@ export class EsteticaModel{
         }
     }
 
+    static async getMisReservas(userId) {
+        try{
+            const [result] = await pool.query(
+            `
+            SELECT * FROM turnos t
+            JOIN servicios s ON t.id_servicio = s.id_servicio
+            WHERE t.id_usuario = ?
+            ORDER BY t.fecha ASC, t.hora ASC
+            `,
+            [userId]
+            );
+            console.log('getMisReservas result:', result);
+            return result;
+        } catch (error) {
+            console.error(
+            'Error en getMisReservas (model):', error
+            )
+        }
+    };
+
+    static async cancelarReserva(reservaId) {
+        try {
+            const [result] = await pool.query(
+                'DELETE FROM turnos WHERE id_turno = ?',
+                [reservaId]
+            );
+            return result;
+        } catch (error) {
+            console.error('Error en cancelarReserva (model):', error);
+            throw error;
+        }
+    }
+
 
 
 

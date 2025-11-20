@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../../styles/components/layout/hamburguesa.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,35 +8,55 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
   const buttonRef = useRef(null);
   const navigate = useNavigate();
 
-  // <- MANTENIDO: tu lógica de logout exactamente como la compartiste
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchSessionUser = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/getSessionUser", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          // puede venir null si no hay sesión
+          setUser(data?.user ?? null);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error al obtener el usuario de sesión:", error);
+        setUser(null);
+      }
+    };
+
+    fetchSessionUser();
+  }, []);
+
+  // logout (igual que tenías)
   const handleLogout = useCallback(async () => {
     try {
       const response = await fetch("http://localhost:3000/logout", {
-        // <- ajustar ruta si tu backend usa /logout
         method: "POST",
         credentials: "include",
       });
 
       if (!response.ok) {
-        // opcional: obtener mensaje de error del backend
         const errBody = await response.json().catch(() => null);
         console.error("Logout failed:", errBody ?? response.statusText);
-        // podés mostrar un toast aquí si tenés sistema de notificaciones
         return;
       }
 
-      // Si usás el checkbox para el menú, cerrarlo (si existe)
       const cb = document.getElementById("menu-toggle");
       if (cb && cb.checked) cb.checked = false;
 
-      // usar navigate para ser más "React"
       navigate("/", { replace: true });
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
   }, [navigate]);
 
-  // Cierra el menú si se hace click fuera o se presiona Escape
+  // Cierra el menú si se hace click fuera o Escape
   useEffect(() => {
     function handleOutside(e) {
       if (
@@ -64,6 +84,10 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
       document.removeEventListener("keydown", handleKey);
     };
   }, [isOpen]);
+
+  // <-- FIX: calcular userId con optional chaining para que nunca intente leer propiedades de null
+  const userId =
+    user?.usuario_id ?? user?.id_usuario ?? user?.id ?? null;
 
   return (
     <div className="hamburger-wrapper" aria-live="polite">
@@ -95,10 +119,17 @@ const HamburgerMenu = ({ avatarSrc = "/vite.svg" }) => {
       >
         <ul>
           <li role="menuitem">
-            <a href="/perfil">Perfil</a>
+            <Link to="/perfil">Perfil</Link>
           </li>
           <li role="menuitem">
-            <a href="/reservas">Reservas</a>
+            {/* si no hay user, dejamos '#' y prevenimos la navegación */}
+            {user ? (
+              <Link to={`/misreservas/${userId}`}>Reservas</Link>
+            ) : (
+              <a href="/" onClick={(e) => e.preventDefault()}>
+                Reservas
+              </a>
+            )}
           </li>
           <li role="menuitem">
             <button onClick={handleLogout} className="logout-btn">

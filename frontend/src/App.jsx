@@ -10,6 +10,7 @@ import Servicios from "./pages/servicios";
 import Turnero from "./pages/turnero";
 import AdminCatalogo from "./pages/adminCatalogo";
 import Admin from "./pages/admin";
+import MisReservas from "./pages/misReservas";
 
 //prueba para ingresar trabajador img: https://i.pinimg.com/736x/0a/b2/29/0ab2290b5905085e67f5f30658ac2caf.jpg
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/turnero/:id" element={<Turnero />} />
           <Route path="/admincatalogo/:id" element={< AdminCatalogo/>} />
           <Route path="/admin/:id" element={< Admin/>} />
+          <Route path="/misreservas/:id" element={< MisReservas/>} />
         
         </Routes>
         <Footer></Footer>
