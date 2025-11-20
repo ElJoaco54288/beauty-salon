@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/servicios/:id" element={<Servicios />} />
           <Route path="/turnero/:id" element={<Turnero />} />
-          <Route path="/admin" element={< Admin/>} />
+          <Route path="/admin/:id" element={< Admin/>} />
         
         </Routes>
         <Footer></Footer>

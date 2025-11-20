@@ -173,8 +173,8 @@ export class EsteticaModel{
     static async definirDisponibles(fecha, hora, serviceId) {
         try {
             const [resultado] = await pool.query(
-                `INSERT INTO turnos (fecha, hora, id_servicio, estado) VALUES (?, ?, ?, 'disponible')`,
-                [fecha, hora, serviceId]
+            `INSERT INTO turnos (fecha, hora, id_servicio, estado) VALUES (?, ?, ?, 'disponible')`,
+            [fecha, hora, serviceId]
             );
             return resultado;
         } catch (error) {
